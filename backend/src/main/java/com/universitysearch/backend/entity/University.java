@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
@@ -35,7 +36,7 @@ public class University {
     private String description;
 
     @ElementCollection
-    @CollectionTable(name = "university_programs", joinColumns = @Column(name = "university_id"))
+    @CollectionTable(name = "university_programs", joinColumns = @JoinColumn(name = "university_id"))
     @Column(name = "program")
     private List<String> programs = new ArrayList<>();
 
