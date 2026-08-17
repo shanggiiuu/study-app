@@ -2,6 +2,7 @@ package com.studyapp.backend.controller;
 
 import com.studyapp.backend.dto.ChangePasswordRequest;
 import com.studyapp.backend.dto.UpdateProfileRequest;
+import com.studyapp.backend.dto.UpdateSettingsRequest;
 import com.studyapp.backend.dto.UserDTO;
 import com.studyapp.backend.security.CurrentUser;
 import com.studyapp.backend.service.UserService;
@@ -27,6 +28,11 @@ public class UserController {
     @PutMapping("/me")
     public ResponseEntity<UserDTO> updateMe(@Valid @RequestBody UpdateProfileRequest request) {
         return ResponseEntity.ok(userService.updateProfile(CurrentUser.id(), request));
+    }
+
+    @PutMapping("/me/settings")
+    public ResponseEntity<UserDTO> updateSettings(@Valid @RequestBody UpdateSettingsRequest request) {
+        return ResponseEntity.ok(userService.updateSettings(CurrentUser.id(), request));
     }
 
     @PutMapping("/me/password")

@@ -10,6 +10,8 @@ public class UserDTO {
     private String gradeLevel;
     private Integer graduationYear;
     private String profilePictureUrl;
+    private Integer weeklyStudyGoalMinutes;
+    private String theme;
 
     public static UserDTO from(User user) {
         UserDTO dto = new UserDTO();
@@ -20,6 +22,8 @@ public class UserDTO {
         dto.gradeLevel = user.getGradeLevel();
         dto.graduationYear = user.getGraduationYear();
         dto.profilePictureUrl = user.getProfilePictureUrl();
+        dto.weeklyStudyGoalMinutes = user.getWeeklyStudyGoalMinutes();
+        dto.theme = user.getTheme();
         return dto;
     }
 
@@ -49,5 +53,13 @@ public class UserDTO {
 
     public String getProfilePictureUrl() {
         return profilePictureUrl;
+    }
+
+    public Integer getWeeklyStudyGoalMinutes() {
+        return weeklyStudyGoalMinutes;
+    }
+
+    public String getTheme() {
+        return theme;
     }
 }

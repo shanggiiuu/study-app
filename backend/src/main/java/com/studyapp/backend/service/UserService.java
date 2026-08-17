@@ -2,6 +2,7 @@ package com.studyapp.backend.service;
 
 import com.studyapp.backend.dto.ChangePasswordRequest;
 import com.studyapp.backend.dto.UpdateProfileRequest;
+import com.studyapp.backend.dto.UpdateSettingsRequest;
 import com.studyapp.backend.dto.UserDTO;
 import com.studyapp.backend.entity.User;
 import com.studyapp.backend.exception.EmailAlreadyInUseException;
@@ -43,6 +44,14 @@ public class UserService {
         user.setGraduationYear(request.getGraduationYear());
         user.setProfilePictureUrl(request.getProfilePictureUrl());
 
+        return UserDTO.from(userRepository.save(user));
+    }
+
+    @Transactional
+    public UserDTO updateSettings(Long id, UpdateSettingsRequest request) {
+        User user = findUser(id);
+        user.setWeeklyStudyGoalMinutes(request.getWeeklyStudyGoalMinutes());
+        user.setTheme(request.getTheme());
         return UserDTO.from(userRepository.save(user));
     }
 
