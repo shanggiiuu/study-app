@@ -1,0 +1,31 @@
+INSERT INTO universities (id, name, country, city, website, description, tuition, currency, acceptance_rate, ranking) VALUES
+(1, 'National University of Singapore', 'Singapore', 'Singapore', 'https://www.nus.edu.sg', 'A leading global university centered in Asia, known for research and innovation.', 17550.00, 'SGD', 0.05, 8),
+(2, 'ETH Zurich', 'Switzerland', 'Zurich', 'https://ethz.ch', 'Science and technology university renowned for engineering and natural sciences.', 1460.00, 'CHF', 0.27, 7),
+(3, 'University of Waterloo', 'Canada', 'Waterloo', 'https://uwaterloo.ca', 'Known for co-op programs and strength in computer science and engineering.', 45000.00, 'CAD', 0.53, 112),
+(4, 'Stanford University', 'United States', 'Stanford', 'https://www.stanford.edu', 'Private research university known for entrepreneurship and technology.', 61731.00, 'USD', 0.04, 3),
+(5, 'University of Tokyo', 'Japan', 'Tokyo', 'https://www.u-tokyo.ac.jp', 'Japan''s top-ranked national university with strong research output.', 535800.00, 'JPY', 0.34, 28),
+(6, 'University of Toronto', 'Canada', 'Toronto', 'https://www.utoronto.ca', 'Canada''s largest university, strong in medicine, engineering, and business.', 58160.00, 'CAD', 0.43, 21),
+(7, 'University of Wollongong', 'Australia', 'Wollongong', 'https://www.uow.edu.au', 'Research-intensive Australian university known for innovation and student experience.', 39024.00, 'AUD', 0.63, 244);
+
+INSERT INTO university_programs (university_id, program) VALUES
+(1, 'Computer Science'),
+(1, 'Engineering'),
+(1, 'Business'),
+(2, 'Computer Science'),
+(2, 'Mechanical Engineering'),
+(2, 'Physics'),
+(3, 'Computer Science'),
+(3, 'Software Engineering'),
+(3, 'Mathematics'),
+(4, 'Computer Science'),
+(4, 'Business'),
+(4, 'Engineering'),
+(5, 'Computer Science'),
+(5, 'Engineering'),
+(5, 'Medicine'),
+(6, 'Computer Science'),
+(6, 'Engineering'),
+(6, 'Medicine'),
+(7, 'Computer Science'),
+(7, 'Nursing'),
+(7, 'Business');
