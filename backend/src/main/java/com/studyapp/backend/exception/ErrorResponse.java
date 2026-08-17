@@ -1,4 +1,4 @@
-﻿package com.studyapp.backend.exception;
+package com.studyapp.backend.exception;
 
 import java.time.Instant;
 
