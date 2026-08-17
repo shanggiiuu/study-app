@@ -1,43 +1,54 @@
-# University / Study Search Web App
+# StudyDesk — Student Academic Management Web App
 
-Backend-first scaffold: a Spring Boot REST API backed by PostgreSQL, with a minimal
-React + TypeScript frontend that only exists to prove the API works end to end.
+A full-stack academic management platform for students: grades, subjects, assignments, exams,
+goals, calendar, notes, flashcards, a study timer, and an AI study advisor, all backed by a real
+Java backend and PostgreSQL.
 
 ```
-React + TypeScript Frontend  →  REST API  →  Spring Boot Backend  →  PostgreSQL
+React + TypeScript  →  REST API  →  Spring Boot  →  Spring Security  →  Spring Data JPA  →  PostgreSQL
 ```
 
 ## Project layout
 
 ```
 study-app/
-├── backend/    Java + Spring Boot + Spring Data JPA + Maven
-├── frontend/   React + TypeScript + Vite (thin API test client)
+├── backend/    Java 21 + Spring Boot + Spring Security (JWT) + Spring Data JPA + Maven
+├── frontend/   React + TypeScript + Vite + Tailwind CSS + React Router + Recharts + Lucide
 └── README.md
 ```
 
-## 1. Install PostgreSQL (required — not yet installed on this machine)
+## Build status — Phase 1 of 6 complete
 
-The backend will not start until it can reach a real PostgreSQL server. Nothing here
-fakes the database with mock data — pick one of the two options below.
+This is being built in phases (see the plan in the original spec). Only what's listed as done
+below actually works end to end; everything else is a clearly-labeled placeholder in the UI.
+
+- [x] **Phase 1 — Foundation**: project setup, PostgreSQL wiring, Spring Boot, React + TypeScript
+      + Tailwind, JWT authentication (register/login/logout), `User` entity/profile, protected
+      routing, sidebar shell matching the target IA.
+- [ ] Phase 2 — Subjects, Grades, Assignments, Exams, GPA calculation service
+- [ ] Phase 3 — Dashboard statistics/charts, upcoming deadlines, calendar widget
+- [ ] Phase 4 — Goals, Notes, Documents, Flashcards, Study Timer
+- [ ] Phase 5 — AI Advice (mock service until a real provider key is configured)
+- [ ] Phase 6 — Notifications, Settings, responsive polish, accessibility
+
+## 1. Install PostgreSQL (required — not installed on this machine)
+
+The backend will not start without a reachable PostgreSQL server.
 
 ### Option A — native install (Windows)
 
-1. Download the installer from https://www.postgresql.org/download/windows/ and run it.
-2. During setup, set a password for the `postgres` user and keep the default port `5432`.
-3. Create the database used by this app:
+1. Download from https://www.postgresql.org/download/windows/ and run the installer.
+2. Set a password for the `postgres` user, keep the default port `5432`.
+3. Create the database:
    ```sh
-   psql -U postgres -c "CREATE DATABASE university_search;"
+   psql -U postgres -c "CREATE DATABASE studyapp;"
    ```
 
-### Option B — Docker (if you'd rather not install PostgreSQL directly)
-
-Docker is not currently installed on this machine either. Install Docker Desktop
-(https://www.docker.com/products/docker-desktop/), then run:
+### Option B — Docker
 
 ```sh
-docker run --name university-search-db \
-  -e POSTGRES_DB=university_search \
+docker run --name studyapp-db \
+  -e POSTGRES_DB=studyapp \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=postgres \
   -p 5432:5432 \
@@ -46,21 +57,22 @@ docker run --name university-search-db \
 
 ## 2. Configure environment variables (backend)
 
-The backend reads DB credentials from environment variables — nothing is hardcoded.
-Defaults (used if a variable isn't set) match the values above:
+No secrets are hardcoded. Defaults (used if unset) match the values above:
 
-| Variable      | Default            |
-|---------------|---------------------|
-| `DB_HOST`     | `localhost`         |
-| `DB_PORT`     | `5432`               |
-| `DB_NAME`     | `university_search` |
-| `DB_USERNAME` | `postgres`           |
-| `DB_PASSWORD` | `postgres`           |
-
-Set them in your shell before running the backend if your local Postgres differs, e.g.:
+| Variable          | Default    |
+|-------------------|------------|
+| `DB_HOST`         | `localhost` |
+| `DB_PORT`         | `5432`      |
+| `DB_NAME`         | `studyapp`  |
+| `DB_USERNAME`     | `postgres`  |
+| `DB_PASSWORD`     | `postgres`  |
+| `JWT_SECRET`      | dev-only fallback — **override this outside local dev** |
+| `JWT_EXPIRATION_MS` | `86400000` (24h) |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:5173` |
 
 ```powershell
 $env:DB_PASSWORD = "your-real-password"
+$env:JWT_SECRET = "a long random string, 32+ bytes"
 ```
 
 ## 3. Run the backend
@@ -70,50 +82,39 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-On startup, Hibernate creates the `universities` / `university_programs` tables and
-`data.sql` seeds 7 sample universities (NUS, ETH Zurich, Waterloo, Stanford, Tokyo,
-Toronto, Wollongong). The schema is dev-mode `create-drop` — it resets and reseeds
-every restart (see the comment in `application.properties` to change that later).
+`spring.jpa.hibernate.ddl-auto=update` — the schema is created/kept in sync automatically, and
+data (including registered users) persists across restarts.
 
-Verify it's working:
+### API (Phase 1)
 
-```
-GET http://localhost:8080/api/universities
-GET http://localhost:8080/api/universities/1
-GET http://localhost:8080/api/universities/search?country=Canada
-GET http://localhost:8080/api/universities/search?program=Computer%20Science
-```
+| Method | Path                    | Auth | Description                          |
+|--------|-------------------------|------|---------------------------------------|
+| POST   | `/api/auth/register`    | none | Create an account, returns JWT + user |
+| POST   | `/api/auth/login`       | none | Log in, returns JWT + user            |
+| POST   | `/api/auth/logout`      | none | Stateless no-op (client drops token)  |
+| GET    | `/api/users/me`         | JWT  | Current user's profile                |
+| PUT    | `/api/users/me`         | JWT  | Update profile                        |
+| PUT    | `/api/users/me/password`| JWT  | Change password                       |
 
-### API
-
-| Method | Path                        | Description                          |
-|--------|-----------------------------|---------------------------------------|
-| GET    | `/api/universities`         | List all universities                 |
-| GET    | `/api/universities/{id}`    | Get one university (404 if missing)   |
-| POST   | `/api/universities`         | Create a university (201, validated)  |
-| PUT    | `/api/universities/{id}`    | Update a university                   |
-| DELETE | `/api/universities/{id}`    | Delete a university (204)             |
-| GET    | `/api/universities/search`  | Filter by `name`, `country`, `city`, `program` (all optional, combinable) |
-
-Errors return JSON via a global exception handler with proper status codes
-(400 for validation/bad input, 404 for not found, 500 for unexpected errors).
+Send the JWT as `Authorization: Bearer <token>`. Passwords are hashed with BCrypt — never stored
+in plain text. A global exception handler returns consistent JSON errors (400/401/403/404/409/500)
+without leaking stack traces.
 
 ## 4. Run the frontend
 
 ```sh
 cd frontend
-npm install   # already run once during setup
+npm install
 npm run dev
 ```
 
-Open http://localhost:5173. It calls the backend at `VITE_API_URL`
-(see `frontend/.env`, defaults to `http://localhost:8080`), lists universities from
-PostgreSQL via the API, supports a simple name search, and shows details when you
-click "View" — no hardcoded frontend data.
+Open http://localhost:5173. Register an account, log in, and you'll land on the dashboard shell —
+sidebar navigation to every planned section is in place; sections not yet built in the backend show
+an explicit "not built yet" placeholder instead of dead buttons.
 
 ## What's intentionally not built yet
 
-Auth, user accounts, saved universities, application tracking, scholarships, AI
-recommendations, complex filtering, admin dashboard, notifications, payments,
-deployment, microservices. This stage only proves the backend-first architecture
-works end to end.
+Subjects, grades, assignments, exams, GPA calculation, progress charts, goals, calendar, notes,
+documents, flashcards, study timer, AI advice, notifications, settings, dark mode. These land in
+later phases per the project's build plan — functionality first, backed by real data and a real
+Java/Spring Boot/PostgreSQL backend, UI polish last.

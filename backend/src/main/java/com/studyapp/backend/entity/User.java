@@ -32,6 +32,12 @@ public class User {
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
+    @Column(name = "weekly_study_goal_minutes")
+    private Integer weeklyStudyGoalMinutes = 300;
+
+    @Column(name = "theme")
+    private String theme = "light";
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
@@ -97,6 +103,22 @@ public class User {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public Integer getWeeklyStudyGoalMinutes() {
+        return weeklyStudyGoalMinutes;
+    }
+
+    public void setWeeklyStudyGoalMinutes(Integer weeklyStudyGoalMinutes) {
+        this.weeklyStudyGoalMinutes = weeklyStudyGoalMinutes;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public Instant getCreatedAt() {
