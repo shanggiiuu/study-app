@@ -7,6 +7,10 @@ import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import SubjectsPage from "./pages/SubjectsPage";
+import GradesPage from "./pages/GradesPage";
+import AssignmentsPage from "./pages/AssignmentsPage";
+import ExamsPage from "./pages/ExamsPage";
 
 export default function App() {
   return (
@@ -24,10 +28,10 @@ export default function App() {
             }
           >
             <Route path="/" element={<DashboardPage />} />
-            <Route path="/grades" element={<PlaceholderPage title="My Grades" phase="Phase 2 — Academic Core" />} />
-            <Route path="/subjects" element={<PlaceholderPage title="Subjects" phase="Phase 2 — Academic Core" />} />
-            <Route path="/assignments" element={<PlaceholderPage title="Assignments" phase="Phase 2 — Academic Core" />} />
-            <Route path="/exams" element={<PlaceholderPage title="Exams" phase="Phase 2 — Academic Core" />} />
+            <Route path="/grades" element={<GradesPage />} />
+            <Route path="/subjects" element={<SubjectsPage />} />
+            <Route path="/assignments" element={<AssignmentsPage />} />
+            <Route path="/exams" element={<ExamsPage />} />
             <Route path="/progress" element={<PlaceholderPage title="Progress" phase="Phase 3 — Dashboard" />} />
             <Route path="/advice" element={<PlaceholderPage title="Advice AI" phase="Phase 5 — Intelligence" />} />
             <Route path="/goals" element={<PlaceholderPage title="Goals" phase="Phase 4 — Productivity" />} />
