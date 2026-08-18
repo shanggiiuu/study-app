@@ -7,12 +7,16 @@
   --color-lavender-300: #c5b6f0;
   --color-lavender-400: #a68ce5;
   --color-lavender-500: #8b65d8;
-  --color-lavender-600: #7548c7;
-  --color-lavender-700: #623aab;
-  --color-lavender-800: #51318b;
-  --color-lavender-900: #432b70;
+  --color-lavender-600: #6d5bd0;
+  --color-lavender-700: #5b48b8;
+  --color-lavender-800: #4a3a96;
+  --color-lavender-900: #3c2f79;
+
+  --color-cream-50: #fdfcfa;
+  --color-cream-100: #faf8f4;
+  --color-cream-200: #f3efe7;
 }
 
 body {
-  @apply bg-[#f7f6fb] text-slate-800 antialiased;
+  @apply bg-[#f9f8f4] text-slate-800 antialiased;
 }

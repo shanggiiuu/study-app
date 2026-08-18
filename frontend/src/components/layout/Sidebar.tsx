@@ -15,6 +15,7 @@ import {
   Timer,
   Settings,
   LogOut,
+  ChevronRight,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -40,10 +41,10 @@ const toolLinks = [
 
 function linkClasses(isActive: boolean) {
   return [
-    "flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors",
+    "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
     isActive
-      ? "bg-lavender-600 text-white shadow-sm"
-      : "text-slate-600 hover:bg-lavender-100 hover:text-lavender-800",
+      ? "bg-lavender-600 text-white shadow-sm shadow-lavender-600/30"
+      : "text-slate-500 hover:bg-lavender-100/70 hover:text-lavender-800",
   ].join(" ");
 }
 
@@ -51,13 +52,13 @@ export default function Sidebar() {
   const { user, logout } = useAuth();
 
   return (
-    <aside className="flex h-screen w-64 shrink-0 flex-col justify-between border-r border-lavender-100 bg-[#fbfaf7] px-4 py-6">
+    <aside className="flex h-screen w-64 shrink-0 flex-col justify-between border-r border-cream-200 bg-cream-100 px-4 py-6">
       <div>
         <div className="mb-8 flex items-center gap-2 px-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lavender-600 text-white font-bold">
-            S
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lavender-600 text-white">
+            <Sparkles size={18} fill="currentColor" />
           </div>
-          <span className="text-lg font-semibold text-slate-800">StudyDesk</span>
+          <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
         </div>
 
         <nav className="space-y-1">
@@ -85,19 +86,28 @@ export default function Sidebar() {
       <div className="space-y-2">
         <NavLink
           to="/profile"
-          className="flex items-center gap-3 rounded-xl border border-lavender-100 bg-white px-3 py-2.5 hover:border-lavender-300"
+          className="flex items-center gap-2 rounded-2xl border border-cream-200 bg-white px-3 py-2.5 shadow-sm hover:border-lavender-300"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-lavender-200 text-sm font-semibold text-lavender-800">
-            {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
+          {user?.profilePictureUrl ? (
+            <img
+              src={user.profilePictureUrl}
+              alt=""
+              className="h-9 w-9 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lavender-200 text-sm font-semibold text-lavender-800">
+              {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
+            </div>
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold text-slate-800">{user?.name ?? "Student"}</p>
+            <p className="truncate text-xs text-slate-400">View profile</p>
           </div>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-slate-800">{user?.name ?? "Student"}</p>
-            <p className="truncate text-xs text-slate-500">{user?.email}</p>
-          </div>
+          <ChevronRight size={16} className="shrink-0 text-slate-300" />
         </NavLink>
         <button
           onClick={() => void logout()}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-500 hover:bg-red-50 hover:text-red-600"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-400 hover:bg-red-50 hover:text-red-600"
         >
           <LogOut size={18} />
           Log out
