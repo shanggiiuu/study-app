@@ -13,22 +13,34 @@ const trend = [
   { month: "Now", value: 3.68 },
 ];
 
-export default function GpaCard() {
+interface GpaCardProps {
+  gpa?: number | null;
+  loading?: boolean;
+}
+
+export default function GpaCard({ gpa, loading = false }: GpaCardProps = {}) {
+  const hasRealData = gpa !== undefined;
+  const display = loading ? "…" : hasRealData ? (gpa === null ? "—" : gpa.toFixed(2)) : "3.68";
+
   return (
     <div className="flex flex-col rounded-2xl border border-lavender-100 bg-lavender-50 p-5">
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-slate-500">GPA</p>
-        <span className="flex items-center gap-0.5 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-emerald-600">
-          <ArrowUp size={12} />
-          0.23
-        </span>
+        {!hasRealData && (
+          <span className="flex items-center gap-0.5 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-emerald-600">
+            <ArrowUp size={12} />
+            0.23
+          </span>
+        )}
       </div>
 
       <div className="mt-2 flex items-baseline gap-1">
-        <span className="text-3xl font-bold text-slate-900">3.68</span>
+        <span className="text-3xl font-bold text-slate-900">{display}</span>
         <span className="text-sm text-slate-400">/ 4.00</span>
       </div>
-      <p className="mt-1 text-xs text-slate-400">vs last month</p>
+      <p className="mt-1 text-xs text-slate-400">
+        {hasRealData ? "Weighted by subject credits" : "vs last month"}
+      </p>
 
       <div className="mt-3 h-20">
         <ResponsiveContainer width="100%" height="100%">

@@ -8,21 +8,33 @@ const breakdown = [
   { label: "D", value: 5, color: "#e9e4f7" },
 ];
 
-export default function AverageGradeCard() {
+interface AverageGradeCardProps {
+  average?: number | null;
+  loading?: boolean;
+}
+
+export default function AverageGradeCard({ average, loading = false }: AverageGradeCardProps = {}) {
+  const hasRealData = average !== undefined;
+  const display = loading ? "…" : hasRealData ? (average === null ? "—" : `${average.toFixed(1)}%`) : "87%";
+
   return (
     <div className="flex flex-col rounded-2xl border border-amber-100 bg-amber-50 p-5">
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-slate-500">Average Grade</p>
-        <span className="flex items-center gap-0.5 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-emerald-600">
-          <ArrowUp size={12} />
-          4%
-        </span>
+        {!hasRealData && (
+          <span className="flex items-center gap-0.5 rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-emerald-600">
+            <ArrowUp size={12} />
+            4%
+          </span>
+        )}
       </div>
 
       <div className="mt-2 flex items-baseline gap-1">
-        <span className="text-3xl font-bold text-slate-900">87%</span>
+        <span className="text-3xl font-bold text-slate-900">{display}</span>
       </div>
-      <p className="mt-1 text-xs text-slate-400">vs last month</p>
+      <p className="mt-1 text-xs text-slate-400">
+        {hasRealData ? "Across graded subjects" : "vs last month"}
+      </p>
 
       <div className="mt-3 flex flex-1 items-center gap-4">
         <div className="relative h-24 w-24 shrink-0">
