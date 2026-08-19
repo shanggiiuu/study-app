@@ -80,3 +80,25 @@ export interface CreateExamPayload {
   location?: string | null;
   subjectId?: number | null;
 }
+
+export type CalendarEventType = "CLASS" | "EXAM" | "STUDY" | "DEADLINE" | "OTHER";
+
+export interface CalendarEvent {
+  id: number;
+  title: string;
+  type: CalendarEventType;
+  startTime: string;
+  endTime: string | null;
+  location: string | null;
+  subjectId: number | null;
+  subjectName: string | null;
+}
+
+export interface CreateCalendarEventPayload {
+  title: string;
+  type?: CalendarEventType;
+  startTime: string;
+  endTime?: string | null;
+  location?: string | null;
+  subjectId?: number | null;
+}
