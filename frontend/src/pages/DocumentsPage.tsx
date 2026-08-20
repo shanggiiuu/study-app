@@ -1,0 +1,13 @@
+import { useEffect, useRef, useState } from "react";
+import { FileText, Trash2, Upload } from "lucide-react";
+import { documentsApi } from "../api/productivityApi";
+import { extractErrorMessage } from "../api/client";
+import type { DocumentItem } from "../types/academic";
+
+export default function DocumentsPage() {
+  const [documents, setDocuments] = useState<DocumentItem[]>([]); const [error, setError] = useState<string | null>(null); const [uploading, setUploading] = useState(false); const input = useRef<HTMLInputElement>(null);
+  useEffect(() => { documentsApi.list().then(setDocuments).catch((e) => setError(extractErrorMessage(e, "Unable to load documents"))); }, []);
+  async function upload(file?: File) { if (!file) return; setUploading(true); try { const document = await documentsApi.upload(file); setDocuments((v) => [document, ...v]); } catch (err) { setError(extractErrorMessage(err, "Unable to upload document")); } finally { setUploading(false); if (input.current) input.current.value = ""; } }
+  async function remove(id: number) { try { await documentsApi.delete(id); setDocuments((v) => v.filter((x) => x.id !== id)); } catch (err) { setError(extractErrorMessage(err, "Unable to delete document")); } }
+  return <div className="space-y-6"><header className="flex items-center justify-between"><div><h1 className="text-2xl font-semibold text-slate-800">Documents</h1><p className="mt-1 text-slate-500">Store course materials with your account.</p></div><button onClick={() => input.current?.click()} disabled={uploading} className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2.5 text-sm font-semibold text-white"><Upload size={16} /> {uploading ? "Uploading…" : "Upload file"}</button><input ref={input} type="file" className="hidden" onChange={(e) => void upload(e.target.files?.[0])} /></header>{error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}<div className="space-y-3">{documents.map((document) => <article key={document.id} className="flex items-center gap-4 rounded-2xl border border-cream-200 bg-white p-4 shadow-sm"><div className="rounded-xl bg-lavender-100 p-3 text-lavender-600"><FileText size={20} /></div><div className="min-w-0 flex-1"><p className="truncate font-semibold text-slate-800">{document.title}</p><p className="text-sm text-slate-400">{document.originalFilename} · {(document.byteSize / 1024).toFixed(1)} KB</p></div><button onClick={() => void remove(document.id)} className="text-slate-400 hover:text-red-600"><Trash2 size={17} /></button></article>)}{documents.length === 0 && <p className="rounded-2xl bg-white p-6 text-center text-sm text-slate-400">No documents uploaded yet.</p>}</div></div>;
+}

@@ -1,0 +1,12 @@
+import { useState } from "react";
+import { Send, Sparkles } from "lucide-react";
+import { askAdvice } from "../api/adviceApi";
+import { extractErrorMessage } from "../api/client";
+
+type Message = { role: "user" | "assistant"; text: string };
+export default function AdvicePage() {
+  const [messages, setMessages] = useState<Message[]>([{ role: "assistant", text: "Hi! I can help you plan study time, prioritize deadlines, and understand your academic progress. What would you like to work on?" }]);
+  const [question, setQuestion] = useState(""); const [loading, setLoading] = useState(false); const [error, setError] = useState<string | null>(null);
+  async function send(e: React.FormEvent) { e.preventDefault(); const text = question.trim(); if (!text || loading) return; setMessages((v) => [...v, { role: "user", text }]); setQuestion(""); setLoading(true); setError(null); try { const answer = await askAdvice(text); setMessages((v) => [...v, { role: "assistant", text: answer }]); } catch (err) { setError(extractErrorMessage(err, "Unable to get AI advice")); } finally { setLoading(false); } }
+  return <div className="mx-auto flex max-w-4xl flex-col gap-5"><header><div className="flex items-center gap-2"><div className="rounded-xl bg-lavender-600 p-2 text-white"><Sparkles size={20} /></div><h1 className="text-2xl font-semibold text-slate-800">Advice AI</h1></div><p className="mt-2 text-slate-500">Personalized guidance based on your StudyDesk subjects, grades, assignments, and exams.</p></header>{error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}<section className="min-h-[430px] space-y-4 rounded-2xl border border-cream-200 bg-white p-5 shadow-sm">{messages.map((message, index) => <div key={index} className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-6 ${message.role === "user" ? "ml-auto bg-lavender-600 text-white" : "bg-cream-100 text-slate-700"}`}>{message.text}</div>)}{loading && <div className="w-fit rounded-2xl bg-cream-100 px-4 py-3 text-sm text-slate-500">Thinking…</div>}</section><form onSubmit={send} className="flex gap-3 rounded-2xl border border-cream-200 bg-white p-3 shadow-sm"><input value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Ask about your study plan…" className="min-w-0 flex-1 rounded-xl border border-slate-200 px-3 py-2" /><button disabled={loading} className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2 font-semibold text-white disabled:opacity-60"><Send size={16} /> Send</button></form></div>;
+}

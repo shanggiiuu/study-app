@@ -27,7 +27,7 @@ below actually works end to end; everything else is a clearly-labeled placeholde
       routing, sidebar shell matching the target IA.
 - [x] Phase 2 — Subjects, Grades, Assignments, Exams, GPA calculation service
 - [x] Phase 3 — Dashboard statistics/charts, upcoming deadlines, calendar widget
-- [ ] Phase 4 — Goals, Notes, Documents, Flashcards, Study Timer
+- [x] Phase 4 — Goals, Notes, Documents, Flashcards, Study Timer
 - [ ] Phase 5 — AI Advice (mock service until a real provider key is configured)
 - [ ] Phase 6 — Notifications, Settings, responsive polish, accessibility
 

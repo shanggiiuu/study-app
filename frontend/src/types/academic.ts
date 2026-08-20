@@ -102,3 +102,12 @@ export interface CreateCalendarEventPayload {
   location?: string | null;
   subjectId?: number | null;
 }
+
+export interface Goal { id: number; title: string; description: string | null; targetDate: string | null; progressPercent: number; status: string; createdAt: string; }
+export interface GoalPayload { title: string; description?: string | null; targetDate?: string | null; progressPercent?: number; status?: string; }
+export interface Note { id: number; subjectId: number | null; subjectName: string | null; title: string; body: string; createdAt: string; updatedAt: string; }
+export interface NotePayload { title: string; body: string; subjectId?: number | null; }
+export interface DocumentItem { id: number; subjectId: number | null; subjectName: string | null; title: string; originalFilename: string; contentType: string; byteSize: number; createdAt: string; }
+export interface FlashcardDeck { id: number; subjectId: number | null; subjectName: string | null; title: string; cardCount: number; }
+export interface Flashcard { id: number; deckId: number; front: string; back: string; box: number; }
+export interface StudySession { id: number; subjectId: number | null; subjectName: string | null; startTime: string; endTime: string | null; durationMinutes: number | null; inProgress: boolean; }
