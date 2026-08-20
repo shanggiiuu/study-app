@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import type { CalendarEvent } from "../../types/academic";
 
 const weekdays = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 const dateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
-export default function CalendarCard() {
+export default function CalendarCard({ events = [] }: { events?: CalendarEvent[] }) {
   const today = useMemo(() => new Date(), []);
   const [month, setMonth] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
   const days = useMemo(() => {
@@ -25,7 +26,7 @@ export default function CalendarCard() {
     </div>
     <div className="mt-4 grid grid-cols-7 gap-y-2 text-center">
       {weekdays.map((day) => <span key={day} className="text-[11px] font-medium text-slate-400">{day}</span>)}
-      {days.map((day) => { const isToday = dateKey(day) === dateKey(today); const current = day.getMonth() === month.getMonth(); return <Link key={dateKey(day)} to={`/calendar?date=${dateKey(day)}`} aria-label={`Open ${day.toLocaleDateString()}`} className="flex flex-col items-center justify-center gap-0.5 py-0.5"><span className={`flex h-7 w-7 items-center justify-center rounded-full text-sm ${isToday ? "bg-lavender-600 font-semibold text-white" : current ? "text-slate-600 hover:bg-lavender-50" : "text-slate-300"}`}>{day.getDate()}</span></Link>; })}
+      {days.map((day) => { const isToday = dateKey(day) === dateKey(today); const current = day.getMonth() === month.getMonth(); const hasEvents = events.some((event) => dateKey(new Date(event.startTime)) === dateKey(day)); return <Link key={dateKey(day)} to={`/calendar?date=${dateKey(day)}`} aria-label={`Open ${day.toLocaleDateString()}`} className="flex flex-col items-center justify-center gap-0.5 py-0.5"><span className={`flex h-7 w-7 items-center justify-center rounded-full text-sm ${isToday ? "bg-lavender-600 font-semibold text-white" : current ? "text-slate-600 hover:bg-lavender-50" : "text-slate-300"}`}>{day.getDate()}</span>{hasEvents && <span className={`h-1 w-1 rounded-full ${isToday ? "bg-white" : "bg-lavender-500"}`} />}</Link>; })}
     </div>
     <Link to={`/calendar?date=${dateKey(today)}`} className="mt-4 flex items-center justify-center gap-1.5 rounded-xl bg-lavender-600 py-2.5 text-sm font-semibold text-white shadow-sm shadow-lavender-600/30 hover:bg-lavender-700"><Plus size={16} /> Add or view events</Link>
   </div>;

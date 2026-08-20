@@ -3,7 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import * as subjectsApi from "../api/subjectsApi";
 import * as assignmentsApi from "../api/assignmentsApi";
 import * as examsApi from "../api/examsApi";
-import type { Assignment, Exam, Subject } from "../types/academic";
+import * as calendarApi from "../api/calendarEventsApi";
+import type { Assignment, CalendarEvent, Exam, Subject } from "../types/academic";
 import { calculateAveragePercent, calculateGpa } from "../utils/gpa";
 import GpaCard from "../components/dashboard/GpaCard";
 import AverageGradeCard from "../components/dashboard/AverageGradeCard";
@@ -24,14 +25,16 @@ export default function DashboardPage() {
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [exams, setExams] = useState<Exam[]>([]);
+  const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([subjectsApi.listSubjects(), assignmentsApi.listAssignments(), examsApi.listExams()])
-      .then(([s, a, e]) => {
+    Promise.all([subjectsApi.listSubjects(), assignmentsApi.listAssignments(), examsApi.listExams(), calendarApi.listCalendarEvents()])
+      .then(([s, a, e, events]) => {
         setSubjects(s);
         setAssignments(a);
         setExams(e);
+        setCalendarEvents(events);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -72,8 +75,8 @@ export default function DashboardPage() {
         </div>
 
         <div className="space-y-6">
-          <CalendarCard />
-          <TodaySchedule />
+          <CalendarCard events={calendarEvents} />
+          <TodaySchedule events={calendarEvents} loading={loading} />
           <UpcomingDeadlines deadlines={deadlines} loading={loading} />
         </div>
       </div>
