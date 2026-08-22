@@ -12,6 +12,7 @@ import {
   StickyNote,
   FolderOpen,
   Layers,
+  HelpCircle,
   Timer,
   Settings,
   LogOut,
@@ -35,6 +36,7 @@ const toolLinks = [
   { to: "/notes", label: "Notes", icon: StickyNote },
   { to: "/documents", label: "Documents", icon: FolderOpen },
   { to: "/flashcards", label: "Flashcards", icon: Layers },
+  { to: "/quizzes", label: "Quizzes", icon: HelpCircle },
   { to: "/study-timer", label: "Study Timer", icon: Timer },
   { to: "/settings", label: "Settings", icon: Settings },
 ];

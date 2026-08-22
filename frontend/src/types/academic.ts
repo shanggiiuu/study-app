@@ -107,7 +107,46 @@ export interface Goal { id: number; title: string; description: string | null; t
 export interface GoalPayload { title: string; description?: string | null; targetDate?: string | null; progressPercent?: number; status?: string; }
 export interface Note { id: number; subjectId: number | null; subjectName: string | null; title: string; body: string; createdAt: string; updatedAt: string; }
 export interface NotePayload { title: string; body: string; subjectId?: number | null; }
-export interface DocumentItem { id: number; subjectId: number | null; subjectName: string | null; title: string; originalFilename: string; contentType: string; byteSize: number; createdAt: string; }
-export interface FlashcardDeck { id: number; subjectId: number | null; subjectName: string | null; title: string; cardCount: number; }
-export interface Flashcard { id: number; deckId: number; front: string; back: string; box: number; }
+export interface DocumentItem { id: number; subjectId: number | null; subjectName: string | null; title: string; originalFilename: string; contentType: string; byteSize: number; createdAt: string; textExtracted: boolean; }
+export interface FlashcardDeck { id: number; subjectId: number | null; subjectName: string | null; title: string; cardCount: number; dueCount: number; }
+export interface Flashcard { id: number; deckId: number; front: string; back: string; box: number; nextReviewDate: string; due: boolean; }
 export interface StudySession { id: number; subjectId: number | null; subjectName: string | null; startTime: string; endTime: string | null; durationMinutes: number | null; inProgress: boolean; }
+
+export type QuizQuestionType = "MCQ" | "FILL_BLANK";
+
+export interface Quiz {
+  id: number;
+  subjectId: number | null;
+  subjectName: string | null;
+  documentId: number | null;
+  title: string;
+  questionCount: number;
+  createdAt: string;
+}
+
+export interface QuizQuestion {
+  id: number;
+  type: QuizQuestionType;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string | null;
+}
+
+export interface QuizDetail {
+  quiz: Quiz;
+  questions: QuizQuestion[];
+}
+
+export interface QuizQuestionResult {
+  questionId: number;
+  correct: boolean;
+  correctAnswer: string;
+  explanation: string | null;
+}
+
+export interface QuizAttemptResult {
+  score: number;
+  total: number;
+  results: QuizQuestionResult[];
+}

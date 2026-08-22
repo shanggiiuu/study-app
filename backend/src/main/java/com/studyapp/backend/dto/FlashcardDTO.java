@@ -2,12 +2,16 @@ package com.studyapp.backend.dto;
 
 import com.studyapp.backend.entity.Flashcard;
 
+import java.time.LocalDate;
+
 public class FlashcardDTO {
     private Long id;
     private Long deckId;
     private String front;
     private String back;
     private int box;
+    private LocalDate nextReviewDate;
+    private boolean due;
 
     public static FlashcardDTO from(Flashcard card) {
         FlashcardDTO dto = new FlashcardDTO();
@@ -16,6 +20,8 @@ public class FlashcardDTO {
         dto.front = card.getFront();
         dto.back = card.getBack();
         dto.box = card.getBox();
+        dto.nextReviewDate = card.getNextReviewDate();
+        dto.due = !card.getNextReviewDate().isAfter(LocalDate.now());
         return dto;
     }
 
@@ -37,5 +43,13 @@ public class FlashcardDTO {
 
     public int getBox() {
         return box;
+    }
+
+    public LocalDate getNextReviewDate() {
+        return nextReviewDate;
+    }
+
+    public boolean isDue() {
+        return due;
     }
 }

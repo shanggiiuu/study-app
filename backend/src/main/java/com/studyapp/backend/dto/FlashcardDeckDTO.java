@@ -8,8 +8,13 @@ public class FlashcardDeckDTO {
     private String subjectName;
     private String title;
     private int cardCount;
+    private int dueCount;
 
     public static FlashcardDeckDTO from(FlashcardDeck deck, int cardCount) {
+        return from(deck, cardCount, 0);
+    }
+
+    public static FlashcardDeckDTO from(FlashcardDeck deck, int cardCount, int dueCount) {
         FlashcardDeckDTO dto = new FlashcardDeckDTO();
         dto.id = deck.getId();
         if (deck.getSubject() != null) {
@@ -18,6 +23,7 @@ public class FlashcardDeckDTO {
         }
         dto.title = deck.getTitle();
         dto.cardCount = cardCount;
+        dto.dueCount = dueCount;
         return dto;
     }
 
@@ -39,5 +45,9 @@ public class FlashcardDeckDTO {
 
     public int getCardCount() {
         return cardCount;
+    }
+
+    public int getDueCount() {
+        return dueCount;
     }
 }

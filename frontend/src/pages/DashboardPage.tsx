@@ -4,8 +4,15 @@ import * as subjectsApi from "../api/subjectsApi";
 import * as assignmentsApi from "../api/assignmentsApi";
 import * as examsApi from "../api/examsApi";
 import * as calendarApi from "../api/calendarEventsApi";
-import type { Assignment, CalendarEvent, Exam, Subject } from "../types/academic";
-import { calculateAveragePercent, calculateGpa } from "../utils/gpa";
+import { sessionsApi } from "../api/productivityApi";
+import type { Assignment, CalendarEvent, Exam, StudySession, Subject } from "../types/academic";
+import {
+  buildGpaTrend,
+  calculateAveragePercent,
+  calculateGpa,
+  computeStreak,
+  computeStudyProgress,
+} from "../utils/gpa";
 import GpaCard from "../components/dashboard/GpaCard";
 import AverageGradeCard from "../components/dashboard/AverageGradeCard";
 import StudyProgressCard from "../components/dashboard/StudyProgressCard";
@@ -26,21 +33,32 @@ export default function DashboardPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [exams, setExams] = useState<Exam[]>([]);
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
+  const [sessions, setSessions] = useState<StudySession[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([subjectsApi.listSubjects(), assignmentsApi.listAssignments(), examsApi.listExams(), calendarApi.listCalendarEvents()])
-      .then(([s, a, e, events]) => {
+    Promise.all([
+      subjectsApi.listSubjects(),
+      assignmentsApi.listAssignments(),
+      examsApi.listExams(),
+      calendarApi.listCalendarEvents(),
+      sessionsApi.list(),
+    ])
+      .then(([s, a, e, events, studySessions]) => {
         setSubjects(s);
         setAssignments(a);
         setExams(e);
         setCalendarEvents(events);
+        setSessions(studySessions);
       })
       .finally(() => setLoading(false));
   }, []);
 
   const gpa = calculateGpa(subjects);
   const average = calculateAveragePercent(subjects);
+  const gpaTrend = buildGpaTrend(subjects);
+  const studyProgress = computeStudyProgress(sessions, user?.weeklyStudyGoalMinutes ?? 300);
+  const streak = computeStreak(sessions);
 
   const today = new Date().toISOString().slice(0, 10);
   const upcomingAssignments = assignments.filter((a) => a.status === "PENDING" && a.dueDate >= today);
@@ -60,17 +78,22 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <GpaCard gpa={gpa} loading={loading} />
+            <GpaCard gpa={gpa} trend={gpaTrend} loading={loading} />
             <AverageGradeCard average={average} loading={loading} />
-            <StudyProgressCard />
-            <StudyStreakCard />
+            <StudyProgressCard
+              completedMinutes={studyProgress.completedMinutes}
+              goalMinutes={studyProgress.goalMinutes}
+              percent={studyProgress.percent}
+              loading={loading}
+            />
+            <StudyStreakCard current={streak.current} best={streak.best} loading={loading} />
           </div>
 
           <SubjectPerformance subjects={subjects} loading={loading} />
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <AiAdvice />
-            <GradeTrendChart />
+            <GradeTrendChart data={gpaTrend} loading={loading} />
           </div>
         </div>
 

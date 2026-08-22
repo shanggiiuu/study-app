@@ -36,6 +36,10 @@ public class Document {
     @Column(nullable = false)
     private byte[] content;
 
+    @Lob
+    @Column(name = "extracted_text")
+    private String extractedText;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
@@ -109,5 +113,13 @@ public class Document {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getExtractedText() {
+        return extractedText;
+    }
+
+    public void setExtractedText(String extractedText) {
+        this.extractedText = extractedText;
     }
 }

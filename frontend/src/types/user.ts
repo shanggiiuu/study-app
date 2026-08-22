@@ -6,4 +6,6 @@ export interface User {
   gradeLevel: string | null;
   graduationYear: number | null;
   profilePictureUrl: string | null;
+  weeklyStudyGoalMinutes: number | null;
+  theme: "light" | "dark";
 }

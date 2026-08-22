@@ -13,6 +13,7 @@ public class DocumentDTO {
     private String contentType;
     private long byteSize;
     private Instant createdAt;
+    private boolean textExtracted;
 
     public static DocumentDTO from(Document document) {
         DocumentDTO dto = new DocumentDTO();
@@ -26,6 +27,7 @@ public class DocumentDTO {
         dto.contentType = document.getContentType();
         dto.byteSize = document.getByteSize();
         dto.createdAt = document.getCreatedAt();
+        dto.textExtracted = document.getExtractedText() != null && !document.getExtractedText().isBlank();
         return dto;
     }
 
@@ -59,5 +61,9 @@ public class DocumentDTO {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public boolean isTextExtracted() {
+        return textExtracted;
     }
 }

@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
-import PlaceholderPage from "./pages/PlaceholderPage";
+import SettingsPage from "./pages/SettingsPage";
 import SubjectsPage from "./pages/SubjectsPage";
 import GradesPage from "./pages/GradesPage";
 import AssignmentsPage from "./pages/AssignmentsPage";
@@ -17,6 +17,7 @@ import GoalsPage from "./pages/GoalsPage";
 import NotesPage from "./pages/NotesPage";
 import DocumentsPage from "./pages/DocumentsPage";
 import FlashcardsPage from "./pages/FlashcardsPage";
+import QuizPage from "./pages/QuizPage";
 import StudyTimerPage from "./pages/StudyTimerPage";
 import AdvicePage from "./pages/AdvicePage";
 
@@ -36,9 +37,10 @@ export default function App() {
       <Route path="/notes" element={<NotesPage />} />
       <Route path="/documents" element={<DocumentsPage />} />
       <Route path="/flashcards" element={<FlashcardsPage />} />
+      <Route path="/quizzes" element={<QuizPage />} />
       <Route path="/study-timer" element={<StudyTimerPage />} />
       <Route path="/advice" element={<AdvicePage />} />
-      <Route path="/settings" element={<PlaceholderPage title="Settings" phase="Phase 6" />} />
+      <Route path="/settings" element={<SettingsPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     </Route>
     <Route path="*" element={<Navigate to="/" replace />} />

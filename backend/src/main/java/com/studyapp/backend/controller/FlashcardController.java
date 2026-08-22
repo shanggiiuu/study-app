@@ -65,7 +65,12 @@ public class FlashcardController {
 
     @PostMapping("/{id}/cards/{cardId}/review")
     public ResponseEntity<FlashcardDTO> reviewCard(@PathVariable Long id, @PathVariable Long cardId,
-                                                     @RequestParam boolean correct) {
-        return ResponseEntity.ok(flashcardService.reviewCard(CurrentUser.id(), id, cardId, correct));
+                                                     @RequestParam int quality) {
+        return ResponseEntity.ok(flashcardService.reviewCard(CurrentUser.id(), id, cardId, quality));
+    }
+
+    @GetMapping("/{id}/cards/due")
+    public ResponseEntity<List<FlashcardDTO>> listDueCards(@PathVariable Long id) {
+        return ResponseEntity.ok(flashcardService.listDueCards(CurrentUser.id(), id));
     }
 }
