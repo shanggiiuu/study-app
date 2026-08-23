@@ -39,7 +39,7 @@ export default function GradesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-slate-800">My Grades</h1>
           <p className="mt-1 text-slate-500">A read-only overview of every grade you've logged.</p>
@@ -75,7 +75,8 @@ export default function GradesPage() {
           </p>
         )}
         {rows.length > 0 && (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-sm">
             <thead>
               <tr className="border-b border-brand-100 text-left text-xs uppercase tracking-wider text-slate-400">
                 <th className="px-5 py-3">Subject</th>
@@ -101,6 +102,7 @@ export default function GradesPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

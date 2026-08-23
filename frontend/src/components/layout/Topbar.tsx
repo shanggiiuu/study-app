@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle, Bell, CalendarClock, Moon, Search, Sun, Target } from "lucide-react";
+import { AlertTriangle, Bell, CalendarClock, Menu, Moon, Search, Sun, Target } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import * as assignmentsApi from "../../api/assignmentsApi";
 import * as examsApi from "../../api/examsApi";
@@ -18,7 +18,11 @@ function formatDate(date: string): string {
   return new Date(`${date}T00:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-export default function Topbar() {
+type TopbarProps = {
+  onMenuClick: () => void;
+};
+
+export default function Topbar({ onMenuClick }: TopbarProps) {
   const { user, theme, setTheme } = useAuth();
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [open, setOpen] = useState(false);
@@ -39,15 +43,24 @@ export default function Topbar() {
   }, []);
 
   return (
-    <header className="flex items-center gap-4 px-8 pt-6">
-      <div className="relative flex-1 max-w-xl">
+    <header className="flex items-center gap-2 px-4 pt-4 sm:gap-4 sm:px-6 sm:pt-6 lg:px-8">
+      <button
+        type="button"
+        aria-label="Open menu"
+        onClick={onMenuClick}
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-cream-200 bg-white text-slate-500 shadow-sm hover:text-slate-700 lg:hidden"
+      >
+        <Menu size={18} />
+      </button>
+
+      <div className="relative min-w-0 flex-1 sm:max-w-xl">
         <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
-          placeholder="Search anything..."
-          className="w-full rounded-2xl border border-cream-200 bg-white py-3 pl-11 pr-16 text-sm text-slate-700 placeholder:text-slate-400 shadow-sm outline-none focus:border-brand-300"
+          placeholder="Search..."
+          className="w-full rounded-2xl border border-cream-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-700 placeholder:text-slate-400 shadow-sm outline-none focus:border-brand-300 sm:pr-16"
         />
-        <kbd className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-cream-100 px-2 py-1 text-xs font-medium text-slate-400">
+        <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-lg bg-cream-100 px-2 py-1 text-xs font-medium text-slate-400 sm:block">
           ⌘K
         </kbd>
       </div>
@@ -68,7 +81,7 @@ export default function Topbar() {
         </button>
 
         {open && (
-          <div className="absolute right-0 top-14 z-20 w-80 rounded-2xl border border-cream-200 bg-white p-3 shadow-lg">
+          <div className="fixed inset-x-4 top-16 z-20 rounded-2xl border border-cream-200 bg-white p-3 shadow-lg sm:absolute sm:inset-x-auto sm:right-0 sm:top-14 sm:w-80">
             <p className="px-2 pb-2 text-sm font-semibold text-slate-800">Notifications</p>
             {notifications.length === 0 ? (
               <p className="px-2 py-4 text-sm text-slate-400">Nothing needs your attention right now.</p>
@@ -104,7 +117,7 @@ export default function Topbar() {
         type="button"
         aria-label="Toggle dark mode"
         onClick={() => void setTheme(theme === "dark" ? "light" : "dark")}
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-sm hover:bg-slate-800"
+        className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-sm hover:bg-slate-800 xs:flex"
       >
         {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </button>

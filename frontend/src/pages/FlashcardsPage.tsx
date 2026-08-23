@@ -65,7 +65,7 @@ export default function FlashcardsPage() {
         <button onClick={() => setDeck(null)} className="flex items-center gap-1 text-sm font-medium text-brand-600">
           <ChevronLeft size={16} /> All decks
         </button>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-2xl font-semibold text-slate-800">{deck.title}</h1>
           {deck.dueCount > 0 && (
             <button onClick={() => void open(deck, !dueOnly)} className="text-sm font-medium text-brand-600">
@@ -74,7 +74,7 @@ export default function FlashcardsPage() {
           )}
         </div>
         {card ? (
-          <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-brand-200 bg-white p-8 text-center shadow-sm">
+          <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-brand-200 bg-white p-5 text-center shadow-sm sm:p-8">
             <p className="text-xs font-semibold uppercase text-brand-500">{showBack ? "Answer" : "Question"}</p>
             <p className="mt-6 text-xl font-medium text-slate-800">{showBack ? card.back : card.front}</p>
             <p className="mt-8 text-sm text-slate-400">Click to flip</p>

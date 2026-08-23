@@ -18,6 +18,7 @@ import {
   Settings,
   LogOut,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import Logo from "../Logo";
@@ -53,69 +54,107 @@ function linkClasses(isActive: boolean) {
   ].join(" ");
 }
 
-export default function Sidebar() {
+type SidebarProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
+export default function Sidebar({ open, onClose }: SidebarProps) {
   const { user, logout } = useAuth();
 
   return (
-    <aside className="flex h-screen w-64 shrink-0 flex-col justify-between border-r border-cream-200 bg-cream-100 px-4 py-6">
-      <div>
-        <div className="mb-8 flex items-center gap-2 px-2">
-          <Logo size={36} />
-          <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
+    <>
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-900/40 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={[
+          "fixed inset-y-0 left-0 z-50 flex h-screen w-72 max-w-[85vw] shrink-0 flex-col justify-between overflow-y-auto border-r border-cream-200 bg-cream-100 px-4 py-6 transition-transform duration-200 ease-out",
+          "lg:sticky lg:top-0 lg:z-0 lg:w-64 lg:max-w-none lg:translate-x-0",
+          open ? "translate-x-0" : "-translate-x-full",
+        ].join(" ")}
+      >
+        <div>
+          <div className="mb-8 flex items-center justify-between px-2">
+            <div className="flex items-center gap-2">
+              <Logo size={36} />
+              <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
+            </div>
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={onClose}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 hover:bg-cream-200 hover:text-slate-600 lg:hidden"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <nav className="space-y-1">
+            {mainLinks.map(({ to, label, icon: Icon, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                onClick={onClose}
+                className={({ isActive }) => linkClasses(isActive)}
+              >
+                <Icon size={18} />
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <p className="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Tools
+          </p>
+          <nav className="space-y-1">
+            {toolLinks.map(({ to, label, icon: Icon }) => (
+              <NavLink key={to} to={to} onClick={onClose} className={({ isActive }) => linkClasses(isActive)}>
+                <Icon size={18} />
+                {label}
+              </NavLink>
+            ))}
+          </nav>
         </div>
 
-        <nav className="space-y-1">
-          {mainLinks.map(({ to, label, icon: Icon, end }) => (
-            <NavLink key={to} to={to} end={end} className={({ isActive }) => linkClasses(isActive)}>
-              <Icon size={18} />
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <p className="mt-6 mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Tools
-        </p>
-        <nav className="space-y-1">
-          {toolLinks.map(({ to, label, icon: Icon }) => (
-            <NavLink key={to} to={to} className={({ isActive }) => linkClasses(isActive)}>
-              <Icon size={18} />
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-      </div>
-
-      <div className="space-y-2">
-        <NavLink
-          to="/profile"
-          className="flex items-center gap-2 rounded-2xl border border-cream-200 bg-white px-3 py-2.5 shadow-sm hover:border-brand-300"
-        >
-          {user?.profilePictureUrl ? (
-            <img
-              src={user.profilePictureUrl}
-              alt=""
-              className="h-9 w-9 shrink-0 rounded-full object-cover"
-            />
-          ) : (
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-200 text-sm font-semibold text-brand-800">
-              {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
+        <div className="space-y-2">
+          <NavLink
+            to="/profile"
+            onClick={onClose}
+            className="flex items-center gap-2 rounded-2xl border border-cream-200 bg-white px-3 py-2.5 shadow-sm hover:border-brand-300"
+          >
+            {user?.profilePictureUrl ? (
+              <img
+                src={user.profilePictureUrl}
+                alt=""
+                className="h-9 w-9 shrink-0 rounded-full object-cover"
+              />
+            ) : (
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-200 text-sm font-semibold text-brand-800">
+                {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
+              </div>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-slate-800">{user?.name ?? "Student"}</p>
+              <p className="truncate text-xs text-slate-400">View profile</p>
             </div>
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-slate-800">{user?.name ?? "Student"}</p>
-            <p className="truncate text-xs text-slate-400">View profile</p>
-          </div>
-          <ChevronRight size={16} className="shrink-0 text-slate-300" />
-        </NavLink>
-        <button
-          onClick={() => void logout()}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-400 hover:bg-red-50 hover:text-red-600"
-        >
-          <LogOut size={18} />
-          Log out
-        </button>
-      </div>
-    </aside>
+            <ChevronRight size={16} className="shrink-0 text-slate-300" />
+          </NavLink>
+          <button
+            onClick={() => void logout()}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-400 hover:bg-red-50 hover:text-red-600"
+          >
+            <LogOut size={18} />
+            Log out
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

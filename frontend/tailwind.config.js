@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xs: "420px",
+      },
       colors: {
         brand: {
           50: "#eff6ff",

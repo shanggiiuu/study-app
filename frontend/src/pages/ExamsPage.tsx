@@ -105,7 +105,7 @@ export default function ExamsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-slate-800">Exams</h1>
           <p className="mt-1 text-slate-500">Keep track of upcoming and past exams.</p>

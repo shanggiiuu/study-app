@@ -88,7 +88,7 @@ export default function SubjectsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-slate-800">Subjects</h1>
           <p className="mt-1 text-slate-500">Manage your subjects and track grades within each one.</p>
@@ -189,18 +189,18 @@ function SubjectCard({
 }) {
   return (
     <div className="rounded-2xl border border-brand-100 bg-white shadow-sm">
-      <div className="flex items-center justify-between p-5">
-        <button onClick={onToggle} className="flex flex-1 items-center gap-4 text-left">
-          {expanded ? <ChevronUp size={18} className="text-slate-400" /> : <ChevronDown size={18} className="text-slate-400" />}
-          <div>
-            <p className="font-medium text-slate-800">{subject.name}</p>
+      <div className="flex flex-wrap items-center justify-between gap-3 p-5">
+        <button onClick={onToggle} className="flex min-w-0 flex-1 items-center gap-3 text-left sm:gap-4">
+          {expanded ? <ChevronUp size={18} className="shrink-0 text-slate-400" /> : <ChevronDown size={18} className="shrink-0 text-slate-400" />}
+          <div className="min-w-0">
+            <p className="truncate font-medium text-slate-800">{subject.name}</p>
             <p className="text-xs text-slate-500">
               {subject.credits ?? 1} credit{(subject.credits ?? 1) === 1 ? "" : "s"} · {subject.grades.length} grade
               {subject.grades.length === 1 ? "" : "s"}
             </p>
           </div>
         </button>
-        <div className="flex items-center gap-4">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
           <div className="text-right">
             <p className="text-lg font-semibold text-brand-700">{subject.letterGrade}</p>
             <p className="text-xs text-slate-500">{subject.grades.length > 0 ? `${subject.currentPercent.toFixed(1)}%` : "—"}</p>
@@ -299,7 +299,8 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
       {error && <p className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
 
       {subject.grades.length > 0 && (
-        <table className="mb-4 w-full text-sm">
+        <div className="mb-4 overflow-x-auto">
+        <table className="w-full min-w-[520px] text-sm">
           <thead>
             <tr className="text-left text-xs uppercase tracking-wider text-slate-400">
               <th className="pb-2">Label</th>
@@ -332,6 +333,7 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       {!showForm && (
