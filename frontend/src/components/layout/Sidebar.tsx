@@ -14,6 +14,7 @@ import {
   Layers,
   HelpCircle,
   Timer,
+  Trophy,
   Settings,
   LogOut,
   ChevronRight,
@@ -38,6 +39,7 @@ const toolLinks = [
   { to: "/flashcards", label: "Flashcards", icon: Layers },
   { to: "/quizzes", label: "Quizzes", icon: HelpCircle },
   { to: "/study-timer", label: "Study Timer", icon: Timer },
+  { to: "/achievements", label: "Achievements", icon: Trophy },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 

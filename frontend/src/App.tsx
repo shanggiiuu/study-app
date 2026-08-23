@@ -20,6 +20,7 @@ import FlashcardsPage from "./pages/FlashcardsPage";
 import QuizPage from "./pages/QuizPage";
 import StudyTimerPage from "./pages/StudyTimerPage";
 import AdvicePage from "./pages/AdvicePage";
+import AchievementsPage from "./pages/AchievementsPage";
 
 export default function App() {
   return <BrowserRouter><AuthProvider><Routes>
@@ -39,6 +40,7 @@ export default function App() {
       <Route path="/flashcards" element={<FlashcardsPage />} />
       <Route path="/quizzes" element={<QuizPage />} />
       <Route path="/study-timer" element={<StudyTimerPage />} />
+      <Route path="/achievements" element={<AchievementsPage />} />
       <Route path="/advice" element={<AdvicePage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/profile" element={<ProfilePage />} />
