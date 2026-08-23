@@ -37,7 +37,7 @@ services:
       - key: JWT_EXPIRATION_MS
         value: 86400000
       - key: CORS_ALLOWED_ORIGINS
-        value: https://studyapp-frontend.onrender.com
+        value: https://studyapp-frontend-5a46.onrender.com
       - key: GROQ_API_KEY
         sync: false
       - key: GROQ_MODEL
@@ -50,7 +50,7 @@ services:
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_API_URL
-        value: https://studyapp-backend.onrender.com
+        value: https://studyapp-backend-n8ic.onrender.com
     routes:
       - type: rewrite
         source: /*
