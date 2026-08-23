@@ -1,0 +1,57 @@
+databases:
+  - name: studyapp-db
+    plan: free
+    databaseName: studyapp
+    user: studyapp
+
+services:
+  - type: web
+    name: studyapp-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: studyapp-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: studyapp-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: studyapp-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: studyapp-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: studyapp-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION_MS
+        value: 86400000
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://studyapp-frontend.onrender.com
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+
+  - type: web
+    name: studyapp-frontend
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://studyapp-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
