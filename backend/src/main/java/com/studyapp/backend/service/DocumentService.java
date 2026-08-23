@@ -28,6 +28,8 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -66,7 +68,8 @@ public class DocumentService {
         document.setUser(user);
         document.setTitle(title != null && !title.isBlank() ? title : file.getOriginalFilename());
         document.setOriginalFilename(file.getOriginalFilename());
-        document.setContentType(file.getContentType() != null ? file.getContentType() : "application/octet-stream");
+        String contentType = resolveContentType(file.getContentType(), file.getOriginalFilename());
+        document.setContentType(contentType);
         document.setByteSize(file.getSize());
         byte[] bytes;
         try {
@@ -75,7 +78,7 @@ public class DocumentService {
             throw new UncheckedIOException("Failed to read uploaded file", e);
         }
         document.setContent(bytes);
-        document.setExtractedText(extractText(document.getContentType(), bytes, document.getOriginalFilename()));
+        document.setExtractedText(extractText(contentType, bytes, document.getOriginalFilename()));
 
         if (subjectId != null) {
             Subject subject = subjectRepository.findByIdAndUserId(subjectId, userId)
@@ -93,6 +96,49 @@ public class DocumentService {
 
     private static final String DOCX_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     private static final String PPTX_TYPE = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+
+    // Browsers and mobile file pickers are unreliable about the Content-Type they report for
+    // office/media files (many just send application/octet-stream). The file extension is a much
+    // more trustworthy signal for these common formats, so it takes priority when recognized.
+    private static final Map<String, String> EXTENSION_CONTENT_TYPES = Map.ofEntries(
+            Map.entry("pdf", "application/pdf"),
+            Map.entry("txt", "text/plain"),
+            Map.entry("docx", DOCX_TYPE),
+            Map.entry("pptx", PPTX_TYPE),
+            Map.entry("jpg", "image/jpeg"),
+            Map.entry("jpeg", "image/jpeg"),
+            Map.entry("png", "image/png"),
+            Map.entry("gif", "image/gif"),
+            Map.entry("webp", "image/webp"),
+            Map.entry("heic", "image/heic"),
+            Map.entry("heif", "image/heif"),
+            Map.entry("mp3", "audio/mpeg"),
+            Map.entry("wav", "audio/wav"),
+            Map.entry("m4a", "audio/mp4"),
+            Map.entry("ogg", "audio/ogg"),
+            Map.entry("mp4", "video/mp4"),
+            Map.entry("mov", "video/quicktime"),
+            Map.entry("webm", "video/webm"));
+
+    private String resolveContentType(String declaredContentType, String filename) {
+        String extension = extensionOf(filename);
+        String mapped = extension != null ? EXTENSION_CONTENT_TYPES.get(extension) : null;
+        if (mapped != null) {
+            return mapped;
+        }
+        return declaredContentType != null && !declaredContentType.isBlank() ? declaredContentType : "application/octet-stream";
+    }
+
+    private String extensionOf(String filename) {
+        if (filename == null) {
+            return null;
+        }
+        int dot = filename.lastIndexOf('.');
+        if (dot < 0 || dot == filename.length() - 1) {
+            return null;
+        }
+        return filename.substring(dot + 1).toLowerCase(Locale.ROOT);
+    }
 
     private String extractText(String contentType, byte[] bytes, String filename) {
         try {
