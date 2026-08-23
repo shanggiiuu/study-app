@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { extractErrorMessage } from "../api/client";
+import Logo from "../components/Logo";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -30,8 +31,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f7f6fb] px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-lavender-100 bg-white p-8 shadow-sm">
+    <div className="flex min-h-screen items-center justify-center bg-[#eef3fb] px-4">
+      <div className="w-full max-w-sm rounded-2xl border border-brand-100 bg-white p-8 shadow-sm">
+        <div className="mb-6 flex items-center gap-2">
+          <Logo size={32} />
+          <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
+        </div>
         <h1 className="text-2xl font-semibold text-slate-800">Welcome back</h1>
         <p className="mt-1 text-sm text-slate-500">Log in to your academic dashboard.</p>
 
@@ -43,7 +48,7 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div>
@@ -53,7 +58,7 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
 
@@ -63,7 +68,7 @@ export default function LoginPage() {
                 type="checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                className="rounded border-slate-300 text-lavender-600 focus:ring-lavender-300"
+                className="rounded border-slate-300 text-brand-600 focus:ring-brand-300"
               />
               Remember me
             </label>
@@ -77,7 +82,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-xl bg-lavender-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+            className="w-full rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {submitting ? "Logging in..." : "Log in"}
           </button>
@@ -85,7 +90,7 @@ export default function LoginPage() {
 
         <p className="mt-6 text-center text-sm text-slate-500">
           Don't have an account?{" "}
-          <Link to="/register" className="font-medium text-lavender-700 hover:underline">
+          <Link to="/register" className="font-medium text-brand-700 hover:underline">
             Create one
           </Link>
         </p>

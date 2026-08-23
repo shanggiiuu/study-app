@@ -62,20 +62,20 @@ export default function FlashcardsPage() {
     const card = cards[index];
     return (
       <div className="space-y-5">
-        <button onClick={() => setDeck(null)} className="flex items-center gap-1 text-sm font-medium text-lavender-600">
+        <button onClick={() => setDeck(null)} className="flex items-center gap-1 text-sm font-medium text-brand-600">
           <ChevronLeft size={16} /> All decks
         </button>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-slate-800">{deck.title}</h1>
           {deck.dueCount > 0 && (
-            <button onClick={() => void open(deck, !dueOnly)} className="text-sm font-medium text-lavender-600">
+            <button onClick={() => void open(deck, !dueOnly)} className="text-sm font-medium text-brand-600">
               {dueOnly ? "Review full deck instead" : "Review due cards only"}
             </button>
           )}
         </div>
         {card ? (
-          <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-lavender-200 bg-white p-8 text-center shadow-sm">
-            <p className="text-xs font-semibold uppercase text-lavender-500">{showBack ? "Answer" : "Question"}</p>
+          <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-brand-200 bg-white p-8 text-center shadow-sm">
+            <p className="text-xs font-semibold uppercase text-brand-500">{showBack ? "Answer" : "Question"}</p>
             <p className="mt-6 text-xl font-medium text-slate-800">{showBack ? card.back : card.front}</p>
             <p className="mt-8 text-sm text-slate-400">Click to flip</p>
           </div>
@@ -93,7 +93,7 @@ export default function FlashcardsPage() {
         <form onSubmit={addCard} className="grid gap-3 rounded-2xl border border-cream-200 bg-white p-4 sm:grid-cols-3">
           <input required value={front} onChange={(e) => setFront(e.target.value)} placeholder="Question" className="rounded-xl border border-slate-200 px-3 py-2" />
           <input required value={back} onChange={(e) => setBack(e.target.value)} placeholder="Answer" className="rounded-xl border border-slate-200 px-3 py-2" />
-          <button className="rounded-xl bg-lavender-600 px-4 py-2 font-semibold text-white">Add card</button>
+          <button className="rounded-xl bg-brand-600 px-4 py-2 font-semibold text-white">Add card</button>
         </form>
       </div>
     );
@@ -108,14 +108,14 @@ export default function FlashcardsPage() {
       {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}
       <form onSubmit={createDeck} className="flex gap-3">
         <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="New deck name" className="flex-1 rounded-xl border border-slate-200 px-3 py-2" />
-        <button className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2 font-semibold text-white"><Plus size={16} /> Create deck</button>
+        <button className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2 font-semibold text-white"><Plus size={16} /> Create deck</button>
       </form>
       <div className="grid gap-4 md:grid-cols-2">
         {decks.map((item) => (
-          <button key={item.id} onClick={() => void open(item)} className="rounded-2xl border border-cream-200 bg-white p-5 text-left shadow-sm hover:border-lavender-300">
+          <button key={item.id} onClick={() => void open(item)} className="rounded-2xl border border-cream-200 bg-white p-5 text-left shadow-sm hover:border-brand-300">
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-slate-800">{item.title}</h2>
-              {item.dueCount > 0 && <span className="rounded-full bg-lavender-600 px-2.5 py-0.5 text-xs font-semibold text-white">{item.dueCount} due</span>}
+              {item.dueCount > 0 && <span className="rounded-full bg-brand-600 px-2.5 py-0.5 text-xs font-semibold text-white">{item.dueCount} due</span>}
             </div>
             <p className="mt-2 text-sm text-slate-400">{item.cardCount} cards</p>
           </button>

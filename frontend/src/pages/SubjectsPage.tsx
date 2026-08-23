@@ -95,7 +95,7 @@ export default function SubjectsPage() {
         </div>
         <button
           onClick={startCreate}
-          className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700"
+          className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
         >
           <Plus size={16} /> Add subject
         </button>
@@ -106,7 +106,7 @@ export default function SubjectsPage() {
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="mt-6 max-w-md space-y-4 rounded-2xl border border-lavender-100 bg-white p-6 shadow-sm"
+          className="mt-6 max-w-md space-y-4 rounded-2xl border border-brand-100 bg-white p-6 shadow-sm"
         >
           <h2 className="text-sm font-semibold text-slate-700">{editingId ? "Edit subject" : "New subject"}</h2>
           <div>
@@ -115,7 +115,7 @@ export default function SubjectsPage() {
               required
               value={form.name}
               onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               placeholder="e.g. AP Biology"
             />
           </div>
@@ -126,7 +126,7 @@ export default function SubjectsPage() {
               min="0"
               value={form.credits}
               onChange={(e) => setForm((f) => ({ ...f, credits: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               placeholder="1"
             />
           </div>
@@ -134,7 +134,7 @@ export default function SubjectsPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+              className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
             >
               {submitting ? "Saving..." : "Save"}
             </button>
@@ -152,7 +152,7 @@ export default function SubjectsPage() {
       <div className="mt-6 space-y-3">
         {loading && <p className="text-sm text-slate-400">Loading subjects...</p>}
         {!loading && subjects.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-lavender-300 bg-white p-10 text-center">
+          <div className="rounded-2xl border border-dashed border-brand-300 bg-white p-10 text-center">
             <p className="text-slate-500">No subjects yet. Add your first one to start tracking grades.</p>
           </div>
         )}
@@ -188,7 +188,7 @@ function SubjectCard({
   onGradesChanged: () => Promise<void>;
 }) {
   return (
-    <div className="rounded-2xl border border-lavender-100 bg-white shadow-sm">
+    <div className="rounded-2xl border border-brand-100 bg-white shadow-sm">
       <div className="flex items-center justify-between p-5">
         <button onClick={onToggle} className="flex flex-1 items-center gap-4 text-left">
           {expanded ? <ChevronUp size={18} className="text-slate-400" /> : <ChevronDown size={18} className="text-slate-400" />}
@@ -202,7 +202,7 @@ function SubjectCard({
         </button>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <p className="text-lg font-semibold text-lavender-700">{subject.letterGrade}</p>
+            <p className="text-lg font-semibold text-brand-700">{subject.letterGrade}</p>
             <p className="text-xs text-slate-500">{subject.grades.length > 0 ? `${subject.currentPercent.toFixed(1)}%` : "—"}</p>
           </div>
           <button onClick={onEdit} className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600">
@@ -295,7 +295,7 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
   }
 
   return (
-    <div className="border-t border-lavender-100 bg-[#fbfaf7] p-5">
+    <div className="border-t border-brand-100 bg-[#f4f7fc] p-5">
       {error && <p className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
 
       {subject.grades.length > 0 && (
@@ -312,7 +312,7 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
           </thead>
           <tbody>
             {subject.grades.map((grade) => (
-              <tr key={grade.id} className="border-t border-lavender-100">
+              <tr key={grade.id} className="border-t border-brand-100">
                 <td className="py-2 font-medium text-slate-700">{grade.label}</td>
                 <td className="py-2 text-slate-500">{grade.category ?? "—"}</td>
                 <td className="py-2 text-slate-500">
@@ -337,33 +337,33 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
       {!showForm && (
         <button
           onClick={startCreate}
-          className="flex items-center gap-2 rounded-xl border border-lavender-200 px-3 py-2 text-sm font-medium text-lavender-700 hover:bg-lavender-50"
+          className="flex items-center gap-2 rounded-xl border border-brand-200 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50"
         >
           <Plus size={14} /> Add grade
         </button>
       )}
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3 rounded-xl border border-lavender-200 bg-white p-4 sm:grid-cols-3">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3 rounded-xl border border-brand-200 bg-white p-4 sm:grid-cols-3">
           <input
             required
             placeholder="Label (e.g. Quiz 1)"
             value={form.label}
             onChange={(e) => setForm((f) => ({ ...f, label: e.target.value }))}
-            className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 sm:col-span-1"
+            className="col-span-2 rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 sm:col-span-1"
           />
           <input
             placeholder="Category"
             value={form.category}
             onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
           <input
             type="date"
             required
             value={form.date}
             onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
           <input
             type="number"
@@ -372,7 +372,7 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
             placeholder="Score"
             value={form.score}
             onChange={(e) => setForm((f) => ({ ...f, score: e.target.value }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
           <input
             type="number"
@@ -381,7 +381,7 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
             placeholder="Max score"
             value={form.maxScore}
             onChange={(e) => setForm((f) => ({ ...f, maxScore: e.target.value }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
           <input
             type="number"
@@ -389,13 +389,13 @@ function GradesPanel({ subject, onGradesChanged }: { subject: Subject; onGradesC
             placeholder="Weight"
             value={form.weight}
             onChange={(e) => setForm((f) => ({ ...f, weight: e.target.value }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400"
           />
           <div className="col-span-2 flex gap-2 sm:col-span-3">
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-lavender-600 px-4 py-2 text-sm font-semibold text-white hover:bg-lavender-700 disabled:opacity-60"
+              className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 disabled:opacity-60"
             >
               {submitting ? "Saving..." : "Save"}
             </button>

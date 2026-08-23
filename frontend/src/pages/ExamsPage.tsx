@@ -112,7 +112,7 @@ export default function ExamsPage() {
         </div>
         <button
           onClick={startCreate}
-          className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700"
+          className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
         >
           <Plus size={16} /> Add exam
         </button>
@@ -121,7 +121,7 @@ export default function ExamsPage() {
       {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-lavender-100 bg-white p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-brand-100 bg-white p-6 shadow-sm">
           <h2 className="text-sm font-semibold text-slate-700">{editingId ? "Edit exam" : "New exam"}</h2>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Title</label>
@@ -129,7 +129,7 @@ export default function ExamsPage() {
               required
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -140,7 +140,7 @@ export default function ExamsPage() {
                 required
                 value={form.examDate}
                 onChange={(e) => setForm((f) => ({ ...f, examDate: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
             <div>
@@ -148,7 +148,7 @@ export default function ExamsPage() {
               <select
                 value={form.subjectId}
                 onChange={(e) => setForm((f) => ({ ...f, subjectId: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               >
                 <option value="">None</option>
                 {subjects.map((s) => (
@@ -167,7 +167,7 @@ export default function ExamsPage() {
                 step="any"
                 value={form.score}
                 onChange={(e) => setForm((f) => ({ ...f, score: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
             <div>
@@ -177,7 +177,7 @@ export default function ExamsPage() {
                 step="any"
                 value={form.maxScore}
                 onChange={(e) => setForm((f) => ({ ...f, maxScore: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
           </div>
@@ -186,14 +186,14 @@ export default function ExamsPage() {
             <input
               value={form.location}
               onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="flex gap-2">
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+              className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
             >
               {submitting ? "Saving..." : "Save"}
             </button>
@@ -211,12 +211,12 @@ export default function ExamsPage() {
       <div className="mt-6 space-y-3">
         {loading && <p className="text-sm text-slate-400">Loading exams...</p>}
         {!loading && exams.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-lavender-300 bg-white p-10 text-center">
+          <div className="rounded-2xl border border-dashed border-brand-300 bg-white p-10 text-center">
             <p className="text-slate-500">No exams yet. Add one to keep track of upcoming tests.</p>
           </div>
         )}
         {exams.map((exam) => (
-          <div key={exam.id} className="flex items-center justify-between rounded-2xl border border-lavender-100 bg-white p-5 shadow-sm">
+          <div key={exam.id} className="flex items-center justify-between rounded-2xl border border-brand-100 bg-white p-5 shadow-sm">
             <div>
               <p className="font-medium text-slate-800">{exam.title}</p>
               <p className="text-xs text-slate-500">

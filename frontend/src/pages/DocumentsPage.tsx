@@ -106,7 +106,7 @@ export default function DocumentsPage() {
           <h1 className="text-2xl font-semibold text-slate-800">Documents</h1>
           <p className="mt-1 text-slate-500">Upload materials and let AI turn them into flashcards, notes, and quizzes.</p>
         </div>
-        <button onClick={() => input.current?.click()} disabled={uploading} className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2.5 text-sm font-semibold text-white">
+        <button onClick={() => input.current?.click()} disabled={uploading} className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white">
           <Upload size={16} /> {uploading ? "Uploading…" : "Upload file"}
         </button>
         <input ref={input} type="file" accept=".pdf,.txt,application/pdf,text/plain" className="hidden" onChange={(e) => void upload(e.target.files?.[0])} />
@@ -119,7 +119,7 @@ export default function DocumentsPage() {
           return (
             <article key={document.id} className="rounded-2xl border border-cream-200 bg-white p-4 shadow-sm">
               <div className="flex items-center gap-4">
-                <div className="rounded-xl bg-lavender-100 p-3 text-lavender-600"><FileText size={20} /></div>
+                <div className="rounded-xl bg-brand-100 p-3 text-brand-600"><FileText size={20} /></div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-slate-800">{document.title}</p>
                   <p className="text-sm text-slate-400">{document.originalFilename} · {(document.byteSize / 1024).toFixed(1)} KB</p>
@@ -129,13 +129,13 @@ export default function DocumentsPage() {
 
               {document.textExtracted ? (
                 <div className="mt-3 flex flex-wrap gap-2 border-t border-cream-100 pt-3">
-                  <button onClick={() => void generateFlashcards(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-lavender-50 px-3 py-1.5 text-xs font-semibold text-lavender-700 hover:bg-lavender-100 disabled:opacity-50">
+                  <button onClick={() => void generateFlashcards(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700 hover:bg-brand-100 disabled:opacity-50">
                     <Layers size={14} /> {busy === "flashcards" ? "Generating…" : "Generate Flashcards"}
                   </button>
-                  <button onClick={() => void generateNotes(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-lavender-50 px-3 py-1.5 text-xs font-semibold text-lavender-700 hover:bg-lavender-100 disabled:opacity-50">
+                  <button onClick={() => void generateNotes(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700 hover:bg-brand-100 disabled:opacity-50">
                     <StickyNote size={14} /> {busy === "notes" ? "Generating…" : "Generate Notes"}
                   </button>
-                  <button onClick={() => void generateQuiz(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-lavender-50 px-3 py-1.5 text-xs font-semibold text-lavender-700 hover:bg-lavender-100 disabled:opacity-50">
+                  <button onClick={() => void generateQuiz(document.id)} disabled={busy !== null} className="flex items-center gap-1.5 rounded-lg bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-700 hover:bg-brand-100 disabled:opacity-50">
                     <HelpCircle size={14} /> {busy === "quiz" ? "Generating…" : "Generate Quiz"}
                   </button>
                   <button onClick={() => setChatOpenId(chatOpen ? null : document.id)} className="flex items-center gap-1.5 rounded-lg bg-cream-100 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-cream-200">
@@ -150,13 +150,13 @@ export default function DocumentsPage() {
                 <div className="mt-3 space-y-3 rounded-xl bg-cream-50 p-3">
                   <div className="max-h-64 space-y-2 overflow-y-auto">
                     {(chats[document.id] ?? []).map((m, i) => (
-                      <div key={i} className={`max-w-[85%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm ${m.role === "user" ? "ml-auto bg-lavender-600 text-white" : "bg-white text-slate-700"}`}>{m.text}</div>
+                      <div key={i} className={`max-w-[85%] whitespace-pre-wrap rounded-xl px-3 py-2 text-sm ${m.role === "user" ? "ml-auto bg-brand-600 text-white" : "bg-white text-slate-700"}`}>{m.text}</div>
                     ))}
                     {chatLoading && <div className="w-fit rounded-xl bg-white px-3 py-2 text-sm text-slate-500">Thinking…</div>}
                   </div>
                   <form onSubmit={(e) => { e.preventDefault(); void sendChat(document.id); }} className="flex gap-2">
                     <input value={chatInput} onChange={(e) => setChatInput(e.target.value)} placeholder="Ask about this document…" className="min-w-0 flex-1 rounded-lg border border-slate-200 px-3 py-1.5 text-sm" />
-                    <button disabled={chatLoading} className="flex items-center gap-1.5 rounded-lg bg-lavender-600 px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-60"><Send size={14} /></button>
+                    <button disabled={chatLoading} className="flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-60"><Send size={14} /></button>
                   </form>
                 </div>
               )}

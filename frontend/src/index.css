@@ -1,24 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-lavender-50: #f6f4fd;
-  --color-lavender-100: #eee9fb;
-  --color-lavender-200: #ded5f7;
-  --color-lavender-300: #c5b6f0;
-  --color-lavender-400: #a68ce5;
-  --color-lavender-500: #8b65d8;
-  --color-lavender-600: #6d5bd0;
-  --color-lavender-700: #5b48b8;
-  --color-lavender-800: #4a3a96;
-  --color-lavender-900: #3c2f79;
+  /* "Study Well" blue — matches the StudyDesk logo gradient. */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
 
-  --color-cream-50: #fdfcfa;
-  --color-cream-100: #faf8f4;
-  --color-cream-200: #f3efe7;
+  --color-accent-300: #fde047;
+  --color-accent-400: #facc15;
+  --color-accent-500: #eab308;
+
+  --color-cream-50: #fbfcfe;
+  --color-cream-100: #f3f6fb;
+  --color-cream-200: #e5ebf5;
 }
 
 body {
-  @apply bg-[#f9f8f4] text-slate-800 antialiased;
+  @apply bg-[#f4f7fc] text-slate-800 antialiased;
 }
 
 /*
@@ -37,8 +42,8 @@ body {
   @apply bg-[#0b0d12] text-slate-200;
 }
 
-.dark .bg-\[\#f9f8f4\],
-.dark .bg-\[\#f7f6fb\] {
+.dark .bg-\[\#f4f7fc\],
+.dark .bg-\[\#eef3fb\] {
   background-color: #0b0d12;
 }
 
@@ -115,9 +120,9 @@ body {
   background-color: rgba(245, 158, 11, 0.14);
 }
 
-.dark .bg-lavender-50,
-.dark .bg-lavender-100 {
-  background-color: rgba(139, 101, 216, 0.16);
+.dark .bg-brand-50,
+.dark .bg-brand-100 {
+  background-color: rgba(59, 130, 246, 0.16);
 }
 
 .dark .border-emerald-100 {
@@ -132,12 +137,12 @@ body {
   border-color: rgba(245, 158, 11, 0.3);
 }
 
-.dark .border-lavender-50,
-.dark .border-lavender-100,
-.dark .border-lavender-200,
-.dark .border-lavender-300,
-.dark .border-lavender-400 {
-  border-color: rgba(139, 101, 216, 0.35);
+.dark .border-brand-50,
+.dark .border-brand-100,
+.dark .border-brand-200,
+.dark .border-brand-300,
+.dark .border-brand-400 {
+  border-color: rgba(59, 130, 246, 0.35);
 }
 
 .dark .text-emerald-500,
@@ -174,14 +179,14 @@ body {
   color: #fbbf24;
 }
 
-.dark .text-lavender-500,
-.dark .text-lavender-600,
-.dark .text-lavender-700,
-.dark .text-lavender-800 {
-  color: #c5b6f0;
+.dark .text-brand-500,
+.dark .text-brand-600,
+.dark .text-brand-700,
+.dark .text-brand-800 {
+  color: #93c5fd;
 }
 
-.dark .ring-lavender-200,
-.dark .ring-lavender-300 {
-  --tw-ring-color: rgba(165, 140, 229, 0.4);
+.dark .ring-brand-200,
+.dark .ring-brand-300 {
+  --tw-ring-color: rgba(96, 165, 250, 0.4);
 }

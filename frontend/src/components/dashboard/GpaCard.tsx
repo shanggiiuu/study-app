@@ -27,7 +27,7 @@ export default function GpaCard({ gpa, trend, loading = false }: GpaCardProps = 
   const monthLabels = trend ? trend.map((p) => p.month) : ["Mar", "Apr", "May", "Jun", "Now"];
 
   return (
-    <div className="flex flex-col rounded-2xl border border-lavender-100 bg-lavender-50 p-5">
+    <div className="flex flex-col rounded-2xl border border-brand-100 bg-brand-50 p-5">
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-slate-500">GPA</p>
         {!hasRealData && (
@@ -51,18 +51,18 @@ export default function GpaCard({ gpa, trend, loading = false }: GpaCardProps = 
           <AreaChart data={sparkline} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="gpaFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6d5bd0" stopOpacity={0.35} />
-                <stop offset="100%" stopColor="#6d5bd0" stopOpacity={0} />
+                <stop offset="0%" stopColor="#2563eb" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
               </linearGradient>
             </defs>
             <YAxis domain={[1, 4]} hide width={0} />
             <Area
               type="monotone"
               dataKey="value"
-              stroke="#6d5bd0"
+              stroke="#2563eb"
               strokeWidth={2}
               fill="url(#gpaFill)"
-              dot={{ r: 2.5, fill: "#6d5bd0", strokeWidth: 0 }}
+              dot={{ r: 2.5, fill: "#2563eb", strokeWidth: 0 }}
               activeDot={false}
               isAnimationActive={false}
               connectNulls

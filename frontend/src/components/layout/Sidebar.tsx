@@ -20,6 +20,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import Logo from "../Logo";
 
 const mainLinks = [
   { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
@@ -47,8 +48,8 @@ function linkClasses(isActive: boolean) {
   return [
     "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
     isActive
-      ? "bg-lavender-600 text-white shadow-sm shadow-lavender-600/30"
-      : "text-slate-500 hover:bg-lavender-100/70 hover:text-lavender-800",
+      ? "bg-brand-600 text-white shadow-sm shadow-brand-600/30"
+      : "text-slate-500 hover:bg-brand-100/70 hover:text-brand-800",
   ].join(" ");
 }
 
@@ -59,9 +60,7 @@ export default function Sidebar() {
     <aside className="flex h-screen w-64 shrink-0 flex-col justify-between border-r border-cream-200 bg-cream-100 px-4 py-6">
       <div>
         <div className="mb-8 flex items-center gap-2 px-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lavender-600 text-white">
-            <Sparkles size={18} fill="currentColor" />
-          </div>
+          <Logo size={36} />
           <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
         </div>
 
@@ -90,7 +89,7 @@ export default function Sidebar() {
       <div className="space-y-2">
         <NavLink
           to="/profile"
-          className="flex items-center gap-2 rounded-2xl border border-cream-200 bg-white px-3 py-2.5 shadow-sm hover:border-lavender-300"
+          className="flex items-center gap-2 rounded-2xl border border-cream-200 bg-white px-3 py-2.5 shadow-sm hover:border-brand-300"
         >
           {user?.profilePictureUrl ? (
             <img
@@ -99,7 +98,7 @@ export default function Sidebar() {
               className="h-9 w-9 shrink-0 rounded-full object-cover"
             />
           ) : (
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lavender-200 text-sm font-semibold text-lavender-800">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-200 text-sm font-semibold text-brand-800">
               {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
             </div>
           )}

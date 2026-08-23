@@ -46,14 +46,14 @@ export default function ProfilePage() {
       <h1 className="text-2xl font-semibold text-slate-800">Profile</h1>
       <p className="mt-1 text-slate-500">Manage your personal and academic details.</p>
 
-      <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-lavender-100 bg-white p-6 shadow-sm">
+      <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-brand-100 bg-white p-6 shadow-sm">
         <div>
           <label className="mb-1 block text-sm font-medium text-slate-700">Name</label>
           <input
             required
             value={form.name}
             onChange={(e) => update("name", e.target.value)}
-            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
           />
         </div>
         <div>
@@ -63,7 +63,7 @@ export default function ProfilePage() {
             required
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
-            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
           />
         </div>
         <div>
@@ -71,7 +71,7 @@ export default function ProfilePage() {
           <input
             value={form.school}
             onChange={(e) => update("school", e.target.value)}
-            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
           />
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -80,7 +80,7 @@ export default function ProfilePage() {
             <input
               value={form.gradeLevel}
               onChange={(e) => update("gradeLevel", e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div>
@@ -89,18 +89,18 @@ export default function ProfilePage() {
               type="number"
               value={form.graduationYear}
               onChange={(e) => update("graduationYear", e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
         </div>
 
         {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
-        {saved && <p className="rounded-lg bg-lavender-50 px-3 py-2 text-sm text-lavender-700">Profile saved.</p>}
+        {saved && <p className="rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-700">Profile saved.</p>}
 
         <button
           type="submit"
           disabled={submitting}
-          className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+          className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
         >
           {submitting ? "Saving..." : "Save changes"}
         </button>

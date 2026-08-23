@@ -49,13 +49,13 @@ export default function GradeTrendChart({ data, loading = false }: GradeTrendCha
         <>
           <div className="relative mt-4 h-48 flex-1">
             {latest !== null && (
-              <span className="absolute right-2 top-0 rounded-lg bg-lavender-600 px-2 py-1 text-xs font-semibold text-white shadow-sm">
+              <span className="absolute right-2 top-0 rounded-lg bg-brand-600 px-2 py-1 text-xs font-semibold text-white shadow-sm">
                 {latest.toFixed(2)}
               </span>
             )}
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 10, right: 4, left: -24, bottom: 0 }}>
-                <CartesianGrid vertical={false} stroke="#f3efe7" />
+                <CartesianGrid vertical={false} stroke="#e5ebf5" />
                 <XAxis
                   dataKey="month"
                   axisLine={false}
@@ -72,9 +72,9 @@ export default function GradeTrendChart({ data, loading = false }: GradeTrendCha
                 <Line
                   type="monotone"
                   dataKey="gpa"
-                  stroke="#6d5bd0"
+                  stroke="#2563eb"
                   strokeWidth={2.5}
-                  dot={{ r: 4, fill: "#6d5bd0", strokeWidth: 2, stroke: "#fff" }}
+                  dot={{ r: 4, fill: "#2563eb", strokeWidth: 2, stroke: "#fff" }}
                   activeDot={{ r: 5 }}
                   isAnimationActive={false}
                   connectNulls
@@ -84,8 +84,8 @@ export default function GradeTrendChart({ data, loading = false }: GradeTrendCha
           </div>
 
           {delta !== null && (
-            <div className="mt-2 flex items-center gap-3 rounded-xl bg-lavender-50 p-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-lavender-100 text-lavender-600">
+            <div className="mt-2 flex items-center gap-3 rounded-xl bg-brand-50 p-3">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-600">
                 <MoveUpRight size={16} />
               </div>
               <p className="text-xs text-slate-600">

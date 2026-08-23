@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { extractErrorMessage } from "../api/client";
+import Logo from "../components/Logo";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -51,8 +52,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f7f6fb] px-4 py-10">
-      <div className="w-full max-w-md rounded-2xl border border-lavender-100 bg-white p-8 shadow-sm">
+    <div className="flex min-h-screen items-center justify-center bg-[#eef3fb] px-4 py-10">
+      <div className="w-full max-w-md rounded-2xl border border-brand-100 bg-white p-8 shadow-sm">
+        <div className="mb-6 flex items-center gap-2">
+          <Logo size={32} />
+          <span className="text-lg font-bold tracking-tight text-slate-900">StudyDesk</span>
+        </div>
         <h1 className="text-2xl font-semibold text-slate-800">Create your account</h1>
         <p className="mt-1 text-sm text-slate-500">Start managing your academic life in one place.</p>
 
@@ -63,7 +68,7 @@ export default function RegisterPage() {
               required
               value={form.name}
               onChange={(e) => update("name", e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div>
@@ -73,7 +78,7 @@ export default function RegisterPage() {
               required
               value={form.email}
               onChange={(e) => update("email", e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -85,7 +90,7 @@ export default function RegisterPage() {
                 minLength={8}
                 value={form.password}
                 onChange={(e) => update("password", e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
             <div>
@@ -96,7 +101,7 @@ export default function RegisterPage() {
                 minLength={8}
                 value={form.confirmPassword}
                 onChange={(e) => update("confirmPassword", e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
           </div>
@@ -109,7 +114,7 @@ export default function RegisterPage() {
             <input
               value={form.school}
               onChange={(e) => update("school", e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -119,7 +124,7 @@ export default function RegisterPage() {
                 value={form.gradeLevel}
                 onChange={(e) => update("gradeLevel", e.target.value)}
                 placeholder="e.g. Grade 11"
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
             <div>
@@ -128,7 +133,7 @@ export default function RegisterPage() {
                 type="number"
                 value={form.graduationYear}
                 onChange={(e) => update("graduationYear", e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
           </div>
@@ -138,7 +143,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-xl bg-lavender-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+            className="w-full rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {submitting ? "Creating account..." : "Create account"}
           </button>
@@ -146,7 +151,7 @@ export default function RegisterPage() {
 
         <p className="mt-6 text-center text-sm text-slate-500">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-lavender-700 hover:underline">
+          <Link to="/login" className="font-medium text-brand-700 hover:underline">
             Log in
           </Link>
         </p>

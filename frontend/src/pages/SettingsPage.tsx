@@ -73,8 +73,8 @@ export default function SettingsPage() {
             onClick={() => void setTheme("light")}
             className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${
               theme === "light"
-                ? "border-lavender-400 bg-lavender-50 text-lavender-700"
-                : "border-slate-200 text-slate-500 hover:border-lavender-200"
+                ? "border-brand-400 bg-brand-50 text-brand-700"
+                : "border-slate-200 text-slate-500 hover:border-brand-200"
             }`}
           >
             <Sun size={16} /> Light
@@ -84,8 +84,8 @@ export default function SettingsPage() {
             onClick={() => void setTheme("dark")}
             className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${
               theme === "dark"
-                ? "border-lavender-400 bg-lavender-50 text-lavender-700"
-                : "border-slate-200 text-slate-500 hover:border-lavender-200"
+                ? "border-brand-400 bg-brand-50 text-brand-700"
+                : "border-slate-200 text-slate-500 hover:border-brand-200"
             }`}
           >
             <Moon size={16} /> Dark
@@ -109,19 +109,19 @@ export default function SettingsPage() {
                 setGoalHours(e.target.value);
                 setGoalSaved(false);
               }}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <button
             type="submit"
             disabled={savingGoal}
-            className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+            className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {savingGoal ? "Saving..." : "Save"}
           </button>
         </form>
         {goalError && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{goalError}</p>}
-        {goalSaved && <p className="mt-3 rounded-lg bg-lavender-50 px-3 py-2 text-sm text-lavender-700">Study goal saved.</p>}
+        {goalSaved && <p className="mt-3 rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-700">Study goal saved.</p>}
       </section>
 
       <section className="rounded-2xl border border-cream-200 bg-white p-6 shadow-sm">
@@ -134,7 +134,7 @@ export default function SettingsPage() {
               required
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div>
@@ -145,7 +145,7 @@ export default function SettingsPage() {
               minLength={8}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div>
@@ -156,17 +156,17 @@ export default function SettingsPage() {
               minLength={8}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
 
           {passwordError && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{passwordError}</p>}
-          {passwordSaved && <p className="rounded-lg bg-lavender-50 px-3 py-2 text-sm text-lavender-700">Password changed.</p>}
+          {passwordSaved && <p className="rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-700">Password changed.</p>}
 
           <button
             type="submit"
             disabled={savingPassword}
-            className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+            className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
           >
             {savingPassword ? "Saving..." : "Change password"}
           </button>

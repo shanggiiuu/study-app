@@ -30,7 +30,7 @@ const statusStyles: Record<AssignmentStatus, string> = {
 
 const priorityStyles: Record<AssignmentPriority, string> = {
   LOW: "bg-slate-100 text-slate-500",
-  MEDIUM: "bg-lavender-100 text-lavender-700",
+  MEDIUM: "bg-brand-100 text-brand-700",
   HIGH: "bg-red-100 text-red-600",
 };
 
@@ -148,7 +148,7 @@ export default function AssignmentsPage() {
         </div>
         <button
           onClick={startCreate}
-          className="flex items-center gap-2 rounded-xl bg-lavender-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700"
+          className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
         >
           <Plus size={16} /> Add assignment
         </button>
@@ -157,7 +157,7 @@ export default function AssignmentsPage() {
       {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-lavender-100 bg-white p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="mt-6 max-w-lg space-y-4 rounded-2xl border border-brand-100 bg-white p-6 shadow-sm">
           <h2 className="text-sm font-semibold text-slate-700">{editingId ? "Edit assignment" : "New assignment"}</h2>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700">Title</label>
@@ -165,7 +165,7 @@ export default function AssignmentsPage() {
               required
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -176,7 +176,7 @@ export default function AssignmentsPage() {
                 required
                 value={form.dueDate}
                 onChange={(e) => setForm((f) => ({ ...f, dueDate: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               />
             </div>
             <div>
@@ -184,7 +184,7 @@ export default function AssignmentsPage() {
               <select
                 value={form.subjectId}
                 onChange={(e) => setForm((f) => ({ ...f, subjectId: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               >
                 <option value="">None</option>
                 {subjects.map((s) => (
@@ -201,7 +201,7 @@ export default function AssignmentsPage() {
               <select
                 value={form.status}
                 onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as AssignmentStatus }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               >
                 {Object.entries(statusLabels).map(([value, label]) => (
                   <option key={value} value={value}>
@@ -215,7 +215,7 @@ export default function AssignmentsPage() {
               <select
                 value={form.priority}
                 onChange={(e) => setForm((f) => ({ ...f, priority: e.target.value as AssignmentPriority }))}
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -229,14 +229,14 @@ export default function AssignmentsPage() {
               value={form.notes}
               onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
               rows={3}
-              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-lavender-400 focus:ring-2 focus:ring-lavender-200"
+              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
             />
           </div>
           <div className="flex gap-2">
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-xl bg-lavender-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-lavender-700 disabled:opacity-60"
+              className="rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
             >
               {submitting ? "Saving..." : "Save"}
             </button>
@@ -254,14 +254,14 @@ export default function AssignmentsPage() {
       <div className="mt-6 space-y-3">
         {loading && <p className="text-sm text-slate-400">Loading assignments...</p>}
         {!loading && assignments.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-lavender-300 bg-white p-10 text-center">
+          <div className="rounded-2xl border border-dashed border-brand-300 bg-white p-10 text-center">
             <p className="text-slate-500">No assignments yet. Add one to start tracking your workload.</p>
           </div>
         )}
         {assignments.map((a) => (
-          <div key={a.id} className="flex items-center justify-between rounded-2xl border border-lavender-100 bg-white p-5 shadow-sm">
+          <div key={a.id} className="flex items-center justify-between rounded-2xl border border-brand-100 bg-white p-5 shadow-sm">
             <div className="flex items-center gap-4">
-              <input type="checkbox" checked={a.status !== "PENDING"} onChange={() => toggleDone(a)} className="h-5 w-5 rounded accent-lavender-600" />
+              <input type="checkbox" checked={a.status !== "PENDING"} onChange={() => toggleDone(a)} className="h-5 w-5 rounded accent-brand-600" />
               <div>
                 <p className={`font-medium ${a.status !== "PENDING" ? "text-slate-400 line-through" : "text-slate-800"}`}>{a.title}</p>
                 <p className="text-xs text-slate-500">

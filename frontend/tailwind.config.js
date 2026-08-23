@@ -4,22 +4,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        lavender: {
-          50: "#f6f4fd",
-          100: "#eee9fb",
-          200: "#ded5f7",
-          300: "#c5b6f0",
-          400: "#a68ce5",
-          500: "#8b65d8",
-          600: "#6d5bd0",
-          700: "#5b48b8",
-          800: "#4a3a96",
-          900: "#3c2f79",
+        brand: {
+          50: "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+        },
+        accent: {
+          300: "#fde047",
+          400: "#facc15",
+          500: "#eab308",
         },
         cream: {
-          50: "#fdfcfa",
-          100: "#faf8f4",
-          200: "#f3efe7",
+          50: "#fbfcfe",
+          100: "#f3f6fb",
+          200: "#e5ebf5",
         },
       },
       fontFamily: {

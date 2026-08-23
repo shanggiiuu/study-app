@@ -45,7 +45,7 @@ export default function Topbar() {
         <input
           type="text"
           placeholder="Search anything..."
-          className="w-full rounded-2xl border border-cream-200 bg-white py-3 pl-11 pr-16 text-sm text-slate-700 placeholder:text-slate-400 shadow-sm outline-none focus:border-lavender-300"
+          className="w-full rounded-2xl border border-cream-200 bg-white py-3 pl-11 pr-16 text-sm text-slate-700 placeholder:text-slate-400 shadow-sm outline-none focus:border-brand-300"
         />
         <kbd className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-cream-100 px-2 py-1 text-xs font-medium text-slate-400">
           ⌘K
@@ -112,7 +112,7 @@ export default function Topbar() {
       {user?.profilePictureUrl ? (
         <img src={user.profilePictureUrl} alt="" className="h-11 w-11 shrink-0 rounded-full object-cover" />
       ) : (
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lavender-200 text-sm font-semibold text-lavender-800">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-200 text-sm font-semibold text-brand-800">
           {user?.name?.charAt(0)?.toUpperCase() ?? "?"}
         </div>
       )}
