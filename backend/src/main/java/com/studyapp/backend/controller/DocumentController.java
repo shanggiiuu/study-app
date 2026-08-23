@@ -125,7 +125,7 @@ public class DocumentController {
     private String requireExtractedText(Document document) {
         String text = document.getExtractedText();
         if (text == null || text.isBlank()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "No extractable text for this document. Only PDF and plain text files are supported.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No extractable text for this document yet. This can happen if the file is empty, unreadable, or AI extraction (for images/audio/video) failed.");
         }
         return text;
     }

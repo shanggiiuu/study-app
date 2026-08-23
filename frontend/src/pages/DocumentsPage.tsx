@@ -104,12 +104,21 @@ export default function DocumentsPage() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-slate-800">Documents</h1>
-          <p className="mt-1 text-slate-500">Upload materials and let AI turn them into flashcards, notes, and quizzes.</p>
+          <p className="mt-1 text-slate-500">
+            Upload PDFs, Word docs, slides, images (like a photo of a whiteboard), audio, or video, and let AI turn
+            them into flashcards, notes, and quizzes.
+          </p>
         </div>
         <button onClick={() => input.current?.click()} disabled={uploading} className="flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white">
           <Upload size={16} /> {uploading ? "Uploading…" : "Upload file"}
         </button>
-        <input ref={input} type="file" accept=".pdf,.txt,application/pdf,text/plain" className="hidden" onChange={(e) => void upload(e.target.files?.[0])} />
+        <input
+          ref={input}
+          type="file"
+          accept=".pdf,.txt,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.heic,.webp,.mp3,.wav,.m4a,.ogg,.mp4,.mov,.webm,application/pdf,text/plain,image/*,audio/*,video/*,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+          className="hidden"
+          onChange={(e) => void upload(e.target.files?.[0])}
+        />
       </header>
       {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}
       <div className="space-y-3">
@@ -143,7 +152,10 @@ export default function DocumentsPage() {
                   </button>
                 </div>
               ) : (
-                <p className="mt-3 border-t border-cream-100 pt-3 text-xs text-slate-400">Text not extracted from this file type — AI tools are only available for PDF and plain text uploads.</p>
+                <p className="mt-3 border-t border-cream-100 pt-3 text-xs text-slate-400">
+                  No text extracted yet. For images/audio/video this runs through AI and can occasionally fail or
+                  take a moment — try re-uploading if this seems wrong.
+                </p>
               )}
 
               {chatOpen && (
