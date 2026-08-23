@@ -41,6 +41,12 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @Column(name = "reset_token_hash")
+    private String resetTokenHash;
+
+    @Column(name = "reset_token_expires_at")
+    private Instant resetTokenExpiresAt;
+
     public Long getId() {
         return id;
     }
@@ -127,5 +133,21 @@ public class User {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getResetTokenHash() {
+        return resetTokenHash;
+    }
+
+    public void setResetTokenHash(String resetTokenHash) {
+        this.resetTokenHash = resetTokenHash;
+    }
+
+    public Instant getResetTokenExpiresAt() {
+        return resetTokenExpiresAt;
+    }
+
+    public void setResetTokenExpiresAt(Instant resetTokenExpiresAt) {
+        this.resetTokenExpiresAt = resetTokenExpiresAt;
     }
 }

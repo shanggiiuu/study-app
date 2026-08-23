@@ -72,9 +72,9 @@ export default function LoginPage() {
               />
               Remember me
             </label>
-            <span className="cursor-not-allowed text-slate-400" title="Not built yet">
+            <Link to="/forgot-password" className="font-medium text-brand-700 hover:underline">
               Forgot password?
-            </span>
+            </Link>
           </div>
 
           {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}

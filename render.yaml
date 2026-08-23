@@ -42,6 +42,12 @@ services:
         sync: false
       - key: GROQ_MODEL
         value: openai/gpt-oss-20b
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
+        value: https://studyapp-frontend-5a46.onrender.com
 
   - type: web
     name: studyapp-frontend
