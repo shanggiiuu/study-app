@@ -55,7 +55,7 @@ export default function FlashcardsPage() {
     if (!deck || !cards[index]) return;
     await flashcardsApi.review(deck.id, cards[index].id, quality);
     setShowBack(false);
-    setIndex((v) => Math.min(v + 1, cards.length - 1));
+    setIndex((v) => v + 1);
   }
 
   if (deck) {
@@ -74,10 +74,18 @@ export default function FlashcardsPage() {
           )}
         </div>
         {card ? (
-          <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-brand-200 bg-white p-5 text-center shadow-sm sm:p-8">
-            <p className="text-xs font-semibold uppercase text-brand-500">{showBack ? "Answer" : "Question"}</p>
-            <p className="mt-6 text-xl font-medium text-slate-800">{showBack ? card.back : card.front}</p>
-            <p className="mt-8 text-sm text-slate-400">Click to flip</p>
+          <>
+            <p className="text-center text-sm text-slate-400">Card {index + 1} of {cards.length}</p>
+            <div onClick={() => setShowBack((v) => !v)} className="min-h-52 cursor-pointer rounded-2xl border border-brand-200 bg-white p-5 text-center shadow-sm sm:p-8">
+              <p className="text-xs font-semibold uppercase text-brand-500">{showBack ? "Answer" : "Question"}</p>
+              <p className="mt-6 text-xl font-medium text-slate-800">{showBack ? card.back : card.front}</p>
+              <p className="mt-8 text-sm text-slate-400">Click to flip</p>
+            </div>
+          </>
+        ) : cards.length > 0 ? (
+          <div className="rounded-2xl border border-cream-200 bg-white p-8 text-center">
+            <p className="font-medium text-slate-700">You've reviewed all {cards.length} card{cards.length === 1 ? "" : "s"} in this session — nice work!</p>
+            <button onClick={() => void open(deck, false)} className="mt-3 text-sm font-medium text-brand-600">Review full deck again</button>
           </div>
         ) : (
           <p className="text-slate-400">{dueOnly ? "Nothing due right now — nice work." : "Add a card to start studying."}</p>
