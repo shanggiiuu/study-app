@@ -43,7 +43,7 @@ function renderNoteBody(body: string): ReactNode {
       blocks.push(<h2 key={i} className="mt-4 text-lg font-semibold text-slate-800 first:mt-0">{renderInline(line.slice(2), `h-${i}`)}</h2>);
     } else if (line.startsWith("- ") || line.startsWith("* ")) {
       listItems.push(line.slice(2));
-    } else if (line === "") {
+    } else if (line === "" || /^-{3,}$/.test(line)) {
       flushList();
     } else {
       flushList();

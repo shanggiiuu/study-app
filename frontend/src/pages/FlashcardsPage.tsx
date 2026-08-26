@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { ChevronLeft, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { flashcardsApi } from "../api/productivityApi";
 import { extractErrorMessage } from "../api/client";
 import type { Flashcard, FlashcardDeck } from "../types/academic";
@@ -51,11 +51,18 @@ export default function FlashcardsPage() {
     }
   }
 
-  async function review(quality: number) {
-    if (!deck || !cards[index]) return;
-    await flashcardsApi.review(deck.id, cards[index].id, quality);
+  async function next() {
+    if (deck && cards[index]) {
+      // Mark the card reviewed (neutral quality) so it stays in the spaced-repetition schedule.
+      await flashcardsApi.review(deck.id, cards[index].id, 4);
+    }
     setShowBack(false);
     setIndex((v) => v + 1);
+  }
+
+  function previous() {
+    setShowBack(false);
+    setIndex((v) => Math.max(0, v - 1));
   }
 
   if (deck) {
@@ -90,12 +97,23 @@ export default function FlashcardsPage() {
         ) : (
           <p className="text-slate-400">{dueOnly ? "Nothing due right now — nice work." : "Add a card to start studying."}</p>
         )}
-        {showBack && card && (
-          <div className="flex flex-wrap justify-center gap-3">
-            <button onClick={() => void review(0)} className="rounded-xl bg-red-100 px-4 py-2 font-semibold text-red-600">Again</button>
-            <button onClick={() => void review(3)} className="rounded-xl bg-amber-100 px-4 py-2 font-semibold text-amber-600">Hard</button>
-            <button onClick={() => void review(4)} className="rounded-xl bg-emerald-100 px-4 py-2 font-semibold text-emerald-600">Good</button>
-            <button onClick={() => void review(5)} className="rounded-xl bg-sky-100 px-4 py-2 font-semibold text-sky-600">Easy</button>
+        {card && (
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={previous}
+              disabled={index === 0}
+              aria-label="Previous card"
+              className="flex items-center gap-1 rounded-xl border border-cream-200 bg-white px-4 py-2 font-semibold text-slate-600 disabled:opacity-40"
+            >
+              <ChevronLeft size={18} /> Back
+            </button>
+            <button
+              onClick={() => void next()}
+              aria-label="Next card"
+              className="flex items-center gap-1 rounded-xl bg-brand-600 px-5 py-2 font-semibold text-white"
+            >
+              Next <ChevronRight size={18} />
+            </button>
           </div>
         )}
         <form onSubmit={addCard} className="grid gap-3 rounded-2xl border border-cream-200 bg-white p-4 sm:grid-cols-3">

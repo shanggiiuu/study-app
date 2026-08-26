@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [slow, setSlow] = useState(false);
 
   const from = (location.state as { from?: string } | null)?.from ?? "/";
 
@@ -20,13 +21,17 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
+    setSlow(false);
+    const slowTimer = setTimeout(() => setSlow(true), 5000);
     try {
       await login({ email, password });
       navigate(from, { replace: true });
     } catch (err) {
       setError(extractErrorMessage(err, "Unable to log in"));
     } finally {
+      clearTimeout(slowTimer);
       setSubmitting(false);
+      setSlow(false);
     }
   }
 
@@ -78,6 +83,11 @@ export default function LoginPage() {
           </div>
 
           {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
+          {slow && (
+            <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-700">
+              Waking up the server — this can take up to a minute on the first request. Hang tight, don't refresh.
+            </p>
+          )}
 
           <button
             type="submit"

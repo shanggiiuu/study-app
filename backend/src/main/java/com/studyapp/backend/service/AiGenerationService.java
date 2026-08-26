@@ -46,9 +46,10 @@ public class AiGenerationService {
     }
 
     public String generateNotes(String sourceText) {
-        String system = "You are a study-tool generator. Given source material, produce well-structured study notes: "
-                + "short headings, bullet points for key facts, and bold the most important terms using markdown. Be concise and accurate; "
-                + "do not invent facts not present in the material.";
+        String system = "You are a study-tool generator. Given source material, produce well-structured study notes using ONLY: "
+                + "\"## \" headings, \"- \" bullet points for key facts, and **bold** for the most important terms. "
+                + "Do NOT use markdown tables, HTML tags, or horizontal rule separators like \"---\" — use a heading to start each new section instead. "
+                + "Be concise and accurate; do not invent facts not present in the material.";
         String user = "Summarize this material into study notes:\n\n" + truncate(sourceText);
         String notes = groqClient.complete(system, user, 1500);
         if (notes == null || notes.isBlank()) {
