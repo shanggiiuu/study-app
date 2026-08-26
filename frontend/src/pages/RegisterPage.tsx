@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { extractErrorMessage } from "../api/client";
 import Logo from "../components/Logo";
+import WakingUpCard from "../components/WakingUpCard";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -144,11 +145,7 @@ export default function RegisterPage() {
           </div>
 
           {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
-          {slow && (
-            <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-700">
-              Waking up the server — this can take up to a minute on the first request. Hang tight, don't refresh.
-            </p>
-          )}
+          {slow && <WakingUpCard />}
 
           <button
             type="submit"
