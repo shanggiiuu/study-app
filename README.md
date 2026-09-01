@@ -28,8 +28,8 @@ below actually works end to end; everything else is a clearly-labeled placeholde
 - [x] Phase 2 — Subjects, Grades, Assignments, Exams, GPA calculation service
 - [x] Phase 3 — Dashboard statistics/charts, upcoming deadlines, calendar widget
 - [x] Phase 4 — Goals, Notes, Documents, Flashcards, Study Timer
-- [ ] Phase 5 — AI Advice (mock service until a real provider key is configured)
-- [ ] Phase 6 — Notifications, Settings, responsive polish, accessibility
+- [x] Phase 5 — AI Advice (mock service until a real provider key is configured)
+- [x] Phase 6 — Notifications, Settings, responsive polish, accessibility
 
 ## 1. Install PostgreSQL (required — not installed on this machine)
 
